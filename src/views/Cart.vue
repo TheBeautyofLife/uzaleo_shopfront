@@ -1,21 +1,20 @@
 <template>
   <v-content>
-    <Header />
-    <v-container class="my-12">
-      <span class="diaplay-1">Shop</span>
+    <Header/>
+     <v-container class="my-12">
       <v-row>
-        <v-card class= "ma-2" v-for="product of products" :key="product.id">
-          <v-img src="product.images.0" />
+        <v-card>
+          <v-img src="" />
           <v-card-title>
-            {{ product.name}}
+            Product
           </v-card-title>
           <v-card-text>
             <v-row>
-            <span class="ma-3"> {{ product.description}}</span>
+            <span class="ma-3">Product Description</span>
             </v-row>
           </v-card-text>
           <v-card-actions>
-            <span class="font-weight-bold ma-3"> {{ product.price}}.00 Kshs</span>
+            <span class="font-weight-bold ma-3">0.00 Kshs</span>
           </v-card-actions>
         </v-card>
       </v-row>
@@ -32,7 +31,7 @@ export default {
   },
   data () {
     return {
-      products: []
+
     }
   },
   mounted () {
@@ -40,7 +39,6 @@ export default {
       .then(res => {
         // this.$cookies.set('unitId', res.data.unit._id)
         console.log(res.data)
-        this.products = res.data
       }).catch(err => {
         this.errors.push(err)
       })
