@@ -5,9 +5,9 @@
       <span class="diaplay-1">Shop</span>
       <v-row>
         <v-card class= "ma-2" v-for="product of products" :key="product.id">
-          <v-img src="product.images.0" />
+          <img :src="product.image" width="250" height="200" />
           <v-card-title>
-            {{ product.name}}
+            {{ product.name }}
           </v-card-title>
           <v-card-text>
             <v-row>
@@ -39,8 +39,8 @@ export default {
     axios.get('https://my-json-server.typicode.com/TheBeautyofLife/ecommerse_test_server/products/')
       .then(res => {
         // this.$cookies.set('unitId', res.data.unit._id)
-        console.log(res.data)
         this.products = res.data
+        console.log(res.data)
       }).catch(err => {
         this.errors.push(err)
       })
