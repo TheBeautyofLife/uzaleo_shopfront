@@ -1,22 +1,15 @@
 <template>
   <v-content>
-    <Header />
+    <header-main />
     <v-container class="my-12">
       <span class="diaplay-1">Shop</span>
       <v-row>
-        <v-card class= "ma-2" v-for="product of products" :key="product.id">
-          <img :src="product.image" width="250" height="200" />
-          <v-card-title>
-            {{ product.name }}
-          </v-card-title>
-          <v-card-text>
-            <v-row>
-            <span class="ma-3"> {{ product.description}}</span>
-            </v-row>
-          </v-card-text>
-          <v-card-actions>
-            <span class="font-weight-bold ma-3"> {{ product.price}}.00 Kshs</span>
-          </v-card-actions>
+        <v-card flat :hover='true' class="ma-3"
+          v-for="product of products"
+          :key="product.id"
+        >
+          <product-item :product="product"></product-item>
+          <v-btn block text :to="{ path: '/product/'+product.id }" class="text-lowercase">View More</v-btn>
         </v-card>
       </v-row>
     </v-container>
@@ -24,26 +17,31 @@
 </template>
 
 <script>
-import * as axios from 'axios'
 import Header from '@/components/header/index.vue'
+import ProductItem from '../views/Product/index'
+
 export default {
+  name: 'Home',
   components: {
-    Header
+    'header-main': Header,
+    // eslint-disable-next-line vue/no-unused-components
+    'product-item': ProductItem
   },
+
   data () {
     return {
-      products: []
+    //
     }
   },
-  mounted () {
-    axios.get('https://my-json-server.typicode.com/TheBeautyofLife/ecommerse_test_server/products/')
-      .then(res => {
-        // this.$cookies.set('unitId', res.data.unit._id)
-        this.products = res.data
-        console.log(res.data)
-      }).catch(err => {
-        this.errors.push(err)
-      })
+  created () {
+    if (this.products.length === 0) {
+      this.$store.dispatch('allProducts')
+    }
+  },
+  computed: {
+    products () {
+      return this.$store.getters.allProducts
+    }
   }
 }
 </script>

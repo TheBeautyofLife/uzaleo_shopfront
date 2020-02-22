@@ -18,8 +18,8 @@ const routes = [
   },
   {
     path: '/product/:id',
-    name: 'product',
-    component: () => import('@/views/Product/id/index.vue'),
+    name: 'Product',
+    component: () => import('@/views/Product/id/id.vue'),
     props: true
   },
   {

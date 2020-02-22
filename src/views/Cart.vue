@@ -1,51 +1,33 @@
 <template>
   <v-content>
-    <Header/>
-     <v-container class="my-12">
-      <v-row>
-        <v-card>
-          <v-img src="" />
-          <v-card-title>
-            Product
-          </v-card-title>
-          <v-card-text>
-            <v-row>
-            <span class="ma-3">Product Description</span>
-            </v-row>
-          </v-card-text>
-          <v-card-actions>
-            <span class="font-weight-bold ma-3">0.00 Kshs</span>
-          </v-card-actions>
-        </v-card>
-      </v-row>
-    </v-container>
+     <header-main />
+    <v-layout column justify-center align-center align-content-center my-12>
+      <div v-if="cart.length > 0">
+       <div class="title my-4">Your Cart</div>
+          <template v-for="product in cart">
+            <product-card :product="product" :key="product._id"></product-card>
+          </template>
+      </div>
+        <div v-else class="my-12">
+            <div  class="title"> Your Cart is Empty </div>
+        </div>
+      </v-layout>
   </v-content>
 </template>
 
 <script>
-import * as axios from 'axios'
+import ProductCard from '../components/product/cart-product'
 import Header from '@/components/header/index.vue'
+
 export default {
-  components: {
-    Header
-  },
   data () {
     return {
-
+      cart: this.$store.state.cart
     }
   },
-  mounted () {
-    axios.get('https://my-json-server.typicode.com/TheBeautyofLife/ecommerse_test_server/products/')
-      .then(res => {
-        // this.$cookies.set('unitId', res.data.unit._id)
-        console.log(res.data)
-      }).catch(err => {
-        this.errors.push(err)
-      })
+  components: {
+    'header-main': Header,
+    'product-card': ProductCard
   }
 }
 </script>
-
-<style>
-
-</style>
