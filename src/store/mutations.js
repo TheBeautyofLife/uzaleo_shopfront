@@ -11,8 +11,6 @@ import {
   REMOVE_FROM_CART,
   ALL_PRODUCTS,
   ALL_PRODUCTS_SUCCESS,
-  ALL_MANUFACTURERS,
-  ALL_MANUFACTURERS_SUCCESS,
   ERROR_MSG
 } from './mutation-types'
 
@@ -70,15 +68,5 @@ export const cartMutations = {
     const index = state.cart.findIndex(p => p._id === payload)
     state.cart.splice(index, 1)
     console.log(state.cart, state.cart.length, index)
-  }
-}
-
-export const manufacturerMutations = {
-  [ALL_MANUFACTURERS] (state) {
-    state.showLoader = true
-  },
-  [ALL_MANUFACTURERS_SUCCESS] (state, payload) {
-    state.showLoader = false
-    state.manufacturers = payload
   }
 }

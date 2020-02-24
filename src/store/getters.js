@@ -8,12 +8,5 @@ export const productGetters = {
     } else {
       return state.product
     }
-  },
-  allManufacturers: state => {
-    return state.manufacturers
   }
-}
-
-export const manufacturerGetters = {
-  allManufacturers: state => state.manufacturers
 }

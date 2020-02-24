@@ -32,6 +32,7 @@
                     </span>
                     <v-divider class="py-8" />
                 <v-card-actions>
+                    <product-button-2 :product="product" />
                 </v-card-actions>
         </v-card>
             </v-layout>
@@ -43,12 +44,14 @@
 <script>
 import * as axios from 'axios'
 import Header from '@/components/header/index.vue'
+import Productbtn from '../../../components/product/product-btn-2'
 
 export default {
   props: ['product'],
   components: {
-    'header-main': Header
+    'header-main': Header,
     // eslint-disable-next-line vue/no-unused-components
+    'product-button-2': Productbtn
   },
   data () {
     return {
@@ -57,7 +60,7 @@ export default {
       image: '',
       price: '',
       description: '',
-
+      divider: '',
       breadcrumbs: [
         {
           text: 'Shop',
