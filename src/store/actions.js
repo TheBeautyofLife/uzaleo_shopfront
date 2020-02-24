@@ -24,7 +24,7 @@ export const productActions = {
   productById ({ commit }, payload) {
     commit(PRODUCT_BY_ID)
     axios.get(`${API_BASE}/products/${payload}`).then(response => {
-      console.log(payload, response.data)
+      // console.log(payload, response.data)
       commit(PRODUCT_BY_ID_SUCCESS, response.data)
     })
   },
@@ -43,7 +43,7 @@ export const productActions = {
   removeProduct ({ commit }, payload) {
     commit(REMOVE_PRODUCT)
     axios.delete(`${API_BASE}/products/${payload}`, payload).then(response => {
-      console.debug('response', response.data)
+      // console.debug('response', response.data)
       commit(REMOVE_PRODUCT_SUCCESS, response.data)
     })
   }

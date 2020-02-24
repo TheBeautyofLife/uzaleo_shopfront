@@ -56,7 +56,7 @@ export const productMutations = {
   [REMOVE_PRODUCT_SUCCESS]: (state, payload) => {
     state.showLoader = false
     const index = state.products.findIndex(p => p._id === payload)
-    console.debug('index', index)
+    // console.debug('index', index)
     state.products.splice(index, 1)
   },
   [ERROR_MSG] (state, payload) {}
@@ -67,6 +67,6 @@ export const cartMutations = {
   [REMOVE_FROM_CART]: (state, payload) => {
     const index = state.cart.findIndex(p => p._id === payload)
     state.cart.splice(index, 1)
-    console.log(state.cart, state.cart.length, index)
+    // console.log(state.cart, state.cart.length, index)
   }
 }

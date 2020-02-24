@@ -27,7 +27,7 @@
         <div v-else class="my-12">
           <v-layout column wrap justify-center align-center>
               <div  class="title"> Your Cart is Empty </div>
-              <v-btn block color="success" to="/">Shop Here</v-btn>
+              <v-btn block color="success" to="/" class="mt-4"> Go to Shop</v-btn>
           </v-layout>
         </div>
       </v-layout>
@@ -54,7 +54,10 @@ export default {
         current + (next.price * next.quantity), 0)
     },
     getCart () {
-      console.log(this.cart)
+      // console.log(this.cart)
+    },
+    methodThatForcesUpdate () {
+      window.location.reload()
     }
   }
 }

@@ -14,7 +14,10 @@ const routes = [
   {
     path: '/cart',
     name: 'Cart',
-    component: Cart
+    component: Cart,
+    meta: {
+      refresh: false
+    }
   },
   {
     path: '/product/:id',
@@ -35,4 +38,16 @@ const router = new VueRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+  if (to.meta.refresh && from.name !== null) {
+    window.location.href = to.path
+    return
+  }
+  // If we are leaving a page that required a refresh
+  if (from.meta.refresh) {
+    window.location.href = to.path
+    return
+  }
+  next()
+})
 export default router

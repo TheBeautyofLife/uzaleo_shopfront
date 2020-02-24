@@ -46,8 +46,9 @@ export default {
   computed: {
     cookieQty () {
       this.$cookies.set('_qty_default.', 1)
+      console.log(this.product)
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      return (this.product.quantity = 1)
+      return (this.product.quantity = this.$cookies.get('_qty_default.'))
     }
   }
 }

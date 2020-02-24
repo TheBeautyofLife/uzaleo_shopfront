@@ -18,7 +18,6 @@
                     dark
                   >
                 Proceed to Checkout
-                {{ getCart ()}}
                 </v-btn>
             </v-card>
           </v-layout>
