@@ -7,14 +7,14 @@
       <v-col>
         <div class="title my-4 ml-4">Checkout</div>
           <v-layout ml-3>
-            <v-stepper v-model="e6" vertical width="600px" class="elevation-0">
+            <v-stepper v-model="e6" vertical class="elevation-0">
               <v-stepper-step :complete="e6 > 1" step="1" color="blue lighten-2">
                   Personal Details
-                  <small>Summarize if needed</small>
+                  <small>Personal information & contacts</small>
               </v-stepper-step>
 
               <v-stepper-content step="1">
-                 <v-card flat color="grey lighten-4" class="mb-12" height="200px" width="610">
+                 <v-card flat color="grey lighten-4" class="mb-9" height="120" width="510">
                    <personal-details />
                  </v-card>
                  <v-btn color="#42424D" dark @click="e6 = 2">Continue</v-btn>
@@ -25,14 +25,16 @@
                 Shipping Details
               </v-stepper-step>
               <v-stepper-content step="2">
-                <v-card flat color="grey lighten-4" class="mb-12" height="200px" width="610"></v-card>
+                <v-card flat color="grey lighten-4" class="mb-12" height="200px" width="510">
+
+                </v-card>
                 <v-btn color="#42424D" dark @click="e6 = 3">Continue</v-btn>
                 <v-btn text>Cancel</v-btn>
               </v-stepper-content>
 
-            <v-stepper-step step="3" color="blue lighten-2">View setup instructions</v-stepper-step>
+            <v-stepper-step step="3" color="blue lighten-2">Payment Option</v-stepper-step>
               <v-stepper-content step="3">
-                <v-card flat color="grey lighten-4" class="mb-12" height="200px" width="610"></v-card>
+                <v-card flat color="grey lighten-4" class="mb-12" height="200px" width="510"></v-card>
                 <v-btn color="#42424D" dark @click="e6 = 1">Continue</v-btn>
                 <v-btn text>Cancel</v-btn>
               </v-stepper-content>
@@ -47,6 +49,14 @@
             <product-card :product="product" :key="product.id"></product-card>
           </template>
         </v-container>
+         <v-btn
+            text
+            color="grey darken-1"
+            class="mt-4 ml-12"
+            to="/cart"
+          >
+            Modify to cart
+          </v-btn>
           <!--  -- Totals -- -->
             <v-layout my-12>
                 <v-card flat width="230" >
@@ -66,23 +76,14 @@
                   </div>
               </v-row>
 
-                  <v-row>
-                  <v-btn
-                    text
-                    small
-                    color="grey darken-1"
-                    class="mt-6 ml-3"
-                    to="/cart"
-                  >
-                    Back to cart
-                  </v-btn>
-                  <v-btn
-                    color="orange"
-                    class="mt-5 mr-2"
-                  >
+              <v-layout row justify-end mr-8>
+                <v-btn
+                  color="orange"
+                  class="mt-5"
+                >
                     Submit
                 </v-btn>
-                  </v-row>
+              </v-layout>
             </v-card>
           </v-layout>
            <!--  -- Totals End -- -->

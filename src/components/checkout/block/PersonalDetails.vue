@@ -1,6 +1,15 @@
 <template>
 <v-container>
-   <span>{{ firstname }}</span>
+  <v-layout column ml-6 mt-2>
+    <v-row>
+      <span class="ma-2">{{ user.username }}</span>
+      <span class="ma-2">{{ user.email }}</span>
+    </v-row>
+    <v-row>
+      <span class="ma-2">{{ user.username }}</span>
+      <span class="ma-2">{{ }}</span>
+    </v-row>
+  </v-layout>
 </v-container>
 </template>
 
@@ -8,10 +17,15 @@
 export default {
   data () {
     return {
-      firstname: 'Stephanie',
-      lastname: '',
-      email: '',
-      phone: ''
+      //
+    }
+  },
+  computed: {
+    user () {
+      const getItems = this.$cookies.get('user')
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      console.log(getItems)
+      return getItems
     }
   }
 }
