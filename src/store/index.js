@@ -3,14 +3,14 @@ import Vuex from 'vuex'
 import VuexPersistence from 'vuex-persist'
 import VueCookies from 'vue-cookies'
 
-import { productGetters } from './getters'
-import { productMutations, cartMutations } from './mutations'
-import { productActions } from './actions'
+import { productGetters, userGetters } from './getters'
+import { productMutations, cartMutations, userMutations } from './mutations'
+import { productActions, userActions } from './actions'
 
 Vue.use(Vuex)
 Vue.use(VueCookies)
 
-Vue.$cookies.config('7d')
+// this.$cookies.config('7d')
 
 // const vuexLocal = new VuexPersistence({
 //   key: 'products',
@@ -35,10 +35,13 @@ export default new Vuex.Store({
     showLoader: false,
     product: {},
     products: [],
-    manufacturers: []
+    token: Vue.$cookies.get('_token') || '',
+    user: {},
+    users: [],
+    status: ''
   },
-  mutations: Object.assign({}, productMutations, cartMutations),
-  getters: Object.assign({}, productGetters),
-  actions: Object.assign({}, productActions),
+  mutations: Object.assign({}, productMutations, cartMutations, userMutations),
+  getters: Object.assign({}, productGetters, userGetters),
+  actions: Object.assign({}, productActions, userActions),
   plugins: [vuexCookie.plugin]
 })

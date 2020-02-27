@@ -10,3 +10,16 @@ export const productGetters = {
     }
   }
 }
+
+export const userGetters = {
+  isLoggedIn: (state) => {
+    return !!state.token
+  },
+  authStatus: (state) => {
+    return state.status
+  },
+  loading (state) {
+    return state.showLoader
+  },
+  user: state => state.user
+}

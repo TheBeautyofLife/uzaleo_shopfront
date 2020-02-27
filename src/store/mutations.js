@@ -11,7 +11,12 @@ import {
   REMOVE_FROM_CART,
   ALL_PRODUCTS,
   ALL_PRODUCTS_SUCCESS,
-  ERROR_MSG
+  ERROR_MSG,
+  SET_LOGIN_REQUEST,
+  SET_TOKEN,
+  SET_LOGIN_ERRORS,
+  LOGOUT,
+  SET_USER
 } from './mutation-types'
 
 export const productMutations = {
@@ -63,10 +68,34 @@ export const productMutations = {
 }
 
 export const cartMutations = {
-  [ADD_TO_CART]: (state, payload) => state.cart.push(payload),
+  [ADD_TO_CART]: (state, payload) => {
+    state.cart.push(payload)
+  },
   [REMOVE_FROM_CART]: (state, payload) => {
     const index = state.cart.findIndex(p => p._id === payload)
     state.cart.splice(index, 1)
     // console.log(state.cart, state.cart.length, index)
+  }
+}
+
+export const userMutations = {
+  [SET_LOGIN_REQUEST]: (state) => {
+    state.showLoader = true
+  },
+  [SET_TOKEN]: (state, token, payload) => {
+    state.status = 'success'
+    state.token = token
+    state.users = payload
+  },
+  [SET_LOGIN_ERRORS]: (state, payload) => {
+    state.status = 'error'
+  },
+  [LOGOUT]: (state) => {
+    state.status = ''
+    state.token = ''
+  },
+  [SET_USER]: (state, payload) => {
+    state.status = 'success'
+    state.users = payload
   }
 }

@@ -16,6 +16,7 @@
       </span>
       <v-spacer />
         <v-layout row justify-end align-center>
+          <user-auth />
             <router-link class="ma-2 font-weight-medium" text to="/">
                 Shop
             </router-link>
@@ -26,17 +27,13 @@
 </template>
 
 <script>
-import CartCount from '../../components/product/cart-count'
-// import {
-//   ERROR_MSG,
-//   ADD_PRODUCT_SUCCESS,
-//   UPDATE_PRODUCT_SUCCESS,
-//   REMOVE_PRODUCT_SUCCESS
-// } from './store/mutation-types'
+import CartCount from './cart-count'
+import Auth from './user-auth'
 
 export default {
   components: {
-    'cart-count': CartCount
+    'cart-count': CartCount,
+    'user-auth': Auth
   }
 }
 </script>

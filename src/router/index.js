@@ -1,36 +1,26 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Cart from '../views/Cart.vue'
+import store from '../store/index'
+
+/**
+* The are are routes modules
+**/
+import ProductRoute from './modules/Products'
+import AuthRoute from './modules/Auth'
+// import DashboardRoute from './modules/Dashboard'
 
 Vue.use(VueRouter)
 
-const routes = [
+const baseRoutes = [
   {
     path: '/',
     name: 'Home',
     component: Home
-  },
-  {
-    path: '/cart',
-    name: 'Cart',
-    component: Cart,
-    meta: {
-      refresh: false
-    }
-  },
-  {
-    path: '/product/:id',
-    name: 'Product',
-    component: () => import('@/views/Product/id/id.vue'),
-    props: true
-  },
-  {
-    path: '/checkout',
-    name: 'Checkout',
-    component: () => import('../views/Checkout.vue')
   }
 ]
+
+const routes = baseRoutes.concat(ProductRoute, AuthRoute)
 
 const router = new VueRouter({
   mode: 'history',
@@ -47,6 +37,16 @@ router.beforeEach((to, from, next) => {
   if (from.meta.refresh) {
     window.location.href = to.path
     return
+  }
+
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (store.getters.isLoggedIn) {
+      next()
+      return
+    }
+    next('/auth/login')
+  } else {
+    next()
   }
   next()
 })

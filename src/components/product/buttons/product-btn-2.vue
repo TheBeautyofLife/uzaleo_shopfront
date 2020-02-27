@@ -4,7 +4,7 @@
         <v-icon class="mr-3">mdi-cart-plus</v-icon>
           Add to cart
     </v-btn>
-    <v-btn disabled v-else block color="success">
+    <v-btn disabled v-else block color="">
         <v-icon class="mr-3">mdi-cart-plus</v-icon>
           Add to cart
     </v-btn>
@@ -13,8 +13,9 @@
 
 <script>
 import {
-  ADD_TO_CART
-} from '../../store/mutation-types'
+  ADD_TO_CART,
+  REMOVE_FROM_CART
+} from '../../../store/mutation-types'
 export default {
   props: ['product'],
   data () {
@@ -30,6 +31,9 @@ export default {
   methods: {
     addToCart () {
       this.$store.commit(ADD_TO_CART, this.product)
+    },
+    removeFromCart (id) {
+      this.$store.commit(REMOVE_FROM_CART, id)
     }
   }
 }

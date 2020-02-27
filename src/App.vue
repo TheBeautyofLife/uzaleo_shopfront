@@ -12,6 +12,14 @@ export default {
 
   components: {
     // Header
+  },
+  computed: {
+    // cartItemsCount () {
+    //   return this.cartItems.length
+    // },
+    showLoader () {
+      return this.$store.state.showLoader
+    }
   }
 }
 </script>

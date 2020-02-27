@@ -13,7 +13,7 @@
 import {
   ADD_TO_CART,
   REMOVE_FROM_CART
-} from '../../store/mutation-types'
+} from '../../../store/mutation-types'
 export default {
   props: ['product'],
   data () {

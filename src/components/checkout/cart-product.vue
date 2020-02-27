@@ -1,15 +1,12 @@
-/* eslint-disable vue/no-side-effects-in-computed-properties */
-/* eslint-disable no-return-assign */
-/* eslint-disable no-return-assign */
 <template>
  <v-content class="ma-3">
    <v-flex xs8>
-   <v-card min-width="600">
+   <v-card min-width="700">
    <v-layout row justify-center align-center>
-      <img class="ml-5" :src="product.image" width="100" height="90" />
+      <v-img class="ml-5" :src="product.image" width="100" height="90" />
        <v-col>
         <div class="font-weight-medium ma-3">
-          {{ product.name }}
+         <router-link :to="{ path: '/product/'+product.id }" class="font-weight-bold"> {{ product.name }} </router-link>
           <product-button :product="product"></product-button>
         </div>
        </v-col>
@@ -24,7 +21,6 @@
             style="width:8px!important"
             class="mr-8"
             dense
-            v-if="cookieQty"
           >
           </v-text-field>
         <v-card-actions>
@@ -37,7 +33,7 @@
 </template>
 
 <script>
-import ProductButton from '../../components/product/product-btn'
+import ProductButton from '../../components/product/buttons/product-btn'
 export default {
   props: ['product'],
   components: {
@@ -47,8 +43,9 @@ export default {
     cookieQty () {
       this.$cookies.set('_qty_default.', 1)
       console.log(this.product)
+      // return (this.product.quantity = this.$cookies.get('_qty_default.'))
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      return (this.product.quantity = this.$cookies.get('_qty_default.'))
+      return (this.product.quantity = 1)
     }
   }
 }

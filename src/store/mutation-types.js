@@ -22,3 +22,10 @@ export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 
 export const ERROR_MSG = 'ERROR_MSG'
 export const SUCCESS_MSG = 'SUCCESS_MSG'
+
+export const SET_LOGIN_REQUEST = 'SET_LOGIN_REQUEST'
+export const SET_TOKEN = 'SET_TOKEN'
+
+export const SET_LOGIN_ERRORS = 'SET_LOGIN_ERRORS'
+export const LOGOUT = 'LOGOUT'
+export const SET_USER = 'SET_USER'

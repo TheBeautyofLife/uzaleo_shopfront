@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import ProductBtns from '../../components/product/product-btn'
+import ProductBtns from '../../components/product/buttons/product-btn'
 
 export default {
   name: 'product-item',

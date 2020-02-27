@@ -18,7 +18,7 @@
 
 <script>
 import Header from '@/components/header/index.vue'
-import ProductItem from '../views/Product/index'
+import ProductItem from '../views/Product/Product'
 
 export default {
   name: 'Home',
