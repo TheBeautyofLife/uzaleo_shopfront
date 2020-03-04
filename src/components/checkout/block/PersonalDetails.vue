@@ -2,12 +2,20 @@
 <v-container>
   <v-layout column ml-6 mt-2>
     <v-row>
-      <span class="ma-2">{{ user.username }}</span>
-      <span class="ma-2">{{ user.email }}</span>
+      <v-layout column>
+            <strong>Firstname</strong>
+            <span class="mt-2">{{ user.firstname }}</span>
+      </v-layout>
+      <v-layout column>
+        <strong>Lastname</strong>
+        <span class="mt-2">{{ user.lastname }}</span>
+      </v-layout>
     </v-row>
     <v-row>
-      <span class="ma-2">{{ user.username }}</span>
-      <span class="ma-2">{{ }}</span>
+       <v-layout column mt-4 mb-4>
+        <strong>Email</strong>
+        <span class="mt-2">{{ user.email }}</span>
+      </v-layout>
     </v-row>
   </v-layout>
 </v-container>
@@ -24,7 +32,7 @@ export default {
     user () {
       const getItems = this.$cookies.get('user')
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      console.log(getItems)
+      // console.log(getItems)
       return getItems
     }
   }

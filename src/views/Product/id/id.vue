@@ -3,11 +3,13 @@
       <header-main />
     <v-container class="my-12">
         <div class="divider">
+          <!-- Breadcrumbs -->
         <v-breadcrumbs :items="breadcrumbs" :divider="divider" class="breadcrumb">
             <template v-slot:divider>
                <v-icon>mdi-chevron-right</v-icon>
             </template>
         </v-breadcrumbs>
+        <!-- *************** -->
     </div>
       <div>
     <product-details :product="product" :isAdding="true"></product-details>

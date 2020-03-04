@@ -3,28 +3,30 @@
    <v-flex xs8>
    <v-card min-width="700">
    <v-layout row justify-center align-center>
-      <v-img class="ml-5" :src="product.image" width="100" height="90" />
+      <v-img class="ml-5 red" :src="product.image" width="100" height="90" />
        <v-col>
         <div class="font-weight-medium ma-3">
-         <router-link :to="{ path: '/product/'+product.id }" class="font-weight-bold"> {{ product.name }} </router-link>
+         <router-link :to="{ path: '/product/'+product._id }" class="font-weight-bold">
+          <i style="height:60px!important">{{ product.name }}</i>
+         </router-link>
           <product-button :product="product"></product-button>
         </div>
        </v-col>
         <v-spacer />
-          <v-text-field
-            v-model="product.quantity"
-            name="qty"
+        <v-select
+          :items="productquantity"
+          v-model="product.quantity"
+          suffix="qty"
+              name="qty"
             color="grey darken-3 elevation-0"
-            small
-            outlined
-            suffix="qty"
             style="width:8px!important"
             class="mr-8"
+            small
+            outlined
             dense
-          >
-          </v-text-field>
+        ></v-select>
         <v-card-actions>
-          <span class="font-weight-bold mr-8"> {{ product.price}}.00 Kshs</span>
+          <span class="font-weight-bold mr-8"> {{ product.price }}.00 Kshs</span>
         </v-card-actions>
    </v-layout>
   </v-card>
@@ -39,6 +41,18 @@ export default {
   components: {
     'product-button': ProductButton
   },
+  data () {
+    return {
+      productquantity: [
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6'
+      ]
+    }
+  },
   computed: {
     cookieQty () {
       this.$cookies.set('_qty_default.', 1)
@@ -50,3 +64,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+._truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>

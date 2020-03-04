@@ -3,9 +3,9 @@ import Vuex from 'vuex'
 import VuexPersistence from 'vuex-persist'
 import VueCookies from 'vue-cookies'
 
-import { productGetters, userGetters } from './getters'
-import { productMutations, cartMutations, userMutations } from './mutations'
-import { productActions, userActions } from './actions'
+import { productGetters, userGetters, shippingGetters } from './getters'
+import { productMutations, cartMutations, userMutations, shippingMutations } from './mutations'
+import { productActions, userActions, shippingActions } from './actions'
 
 Vue.use(Vuex)
 Vue.use(VueCookies)
@@ -25,7 +25,6 @@ const vuexCookie = new VuexPersistence({
       expires: 3
     }),
   modules: ['cart']
-  // filter: (mutation) => mutation.type == 'logIn' || mutation.type == 'logOut'
 })
 
 export default new Vuex.Store({
@@ -38,10 +37,12 @@ export default new Vuex.Store({
     token: Vue.$cookies.get('_token') || '',
     user: {},
     users: [],
-    status: ''
+    status: '',
+    shipping: {},
+    shippings: []
   },
-  mutations: Object.assign({}, productMutations, cartMutations, userMutations),
-  getters: Object.assign({}, productGetters, userGetters),
-  actions: Object.assign({}, productActions, userActions),
+  mutations: Object.assign({}, productMutations, cartMutations, userMutations, shippingMutations),
+  getters: Object.assign({}, productGetters, userGetters, shippingGetters),
+  actions: Object.assign({}, productActions, userActions, shippingActions),
   plugins: [vuexCookie.plugin]
 })

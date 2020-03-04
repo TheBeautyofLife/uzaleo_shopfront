@@ -16,7 +16,13 @@ import {
   SET_TOKEN,
   SET_LOGIN_ERRORS,
   LOGOUT,
-  SET_USER
+  SET_USER,
+  ADD_SHIPPING,
+  ADD_SHIPPING_SUCCESS,
+  ALL_SHIPPING,
+  ALL_SHIPPING_SUCCESS,
+  REMOVE_SHIPPING,
+  REMOVE_SHIPPING_SUCCESS
 } from './mutation-types'
 
 export const productMutations = {
@@ -98,4 +104,32 @@ export const userMutations = {
     state.status = 'success'
     state.users = payload
   }
+}
+
+export const shippingMutations = {
+  [ALL_SHIPPING] (state) {
+    state.showLoader = true
+    // this[]
+  },
+  [ALL_SHIPPING_SUCCESS] (state, payload) {
+    state.showLoader = false
+    state.shippings = payload
+  },
+  [ADD_SHIPPING]: (state, payload) => {
+    state.showLoader = true
+  },
+  [ADD_SHIPPING_SUCCESS]: (state, payload) => {
+    state.showLoader = false
+    state.shippings.push(payload)
+  },
+  [REMOVE_SHIPPING]: (state, payload) => {
+    state.showLoader = true
+  },
+  [REMOVE_SHIPPING_SUCCESS]: (state, payload) => {
+    state.showLoader = false
+    const index = state.shippings.findIndex(s => s._id === payload)
+    // console.debug('index', index)
+    state.shippings.splice(index, 1)
+  },
+  [ERROR_MSG] (state, payload) {}
 }

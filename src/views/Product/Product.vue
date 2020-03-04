@@ -1,12 +1,12 @@
 <template>
   <v-content>
-      <img :src="product.image" width="250" height="200" />
-        <v-card-title>
+      <v-img class="light-blue lighten-2" :src="product.image" width="230" height="200" />
+        <v-card-title class="col col-12 d-block text-truncate">
           {{ product.name }}
         </v-card-title>
-        <v-card-text>
+        <!-- <v-card-text>
           {{ product.description }}
-        </v-card-text>
+        </v-card-text> -->
         <v-card-actions>
           <span class="font-weight-bold ma-3"> {{ product.price }}.00 Kshs</span>
           <v-spacer></v-spacer>

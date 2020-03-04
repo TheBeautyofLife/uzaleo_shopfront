@@ -41,18 +41,23 @@
                   </v-btn>
               </v-layout>
 
-              <v-layout row wrap justify-center>
+                <v-layout row wrap justify-center align-center my-9>
+                <v-layout class="overlay" v-show="showLoader">
+                    <v-progress-circular
+                      indeterminate
+                      color="orange"
+                    ></v-progress-circular>
+                </v-layout>
               <v-btn
+                v-show="!showLoader"
                 color="orange"
                 dark
                 depressed
                 type="submit"
                 height="50"
                 width="200"
-                :disabled="loading"
-                :loading="loading"
               >
-              LOGIN
+              Login
               </v-btn>
                </v-layout>
             </form>
@@ -87,9 +92,9 @@ export default {
     // eslint-disable-next-line vue/no-unused-components
   },
   computed: {
-    loading () {
-      return this.$store.getters.loading
-    }
+    // showLoader () {
+    //   return this.$store.state.showLoader
+    // }
   },
   methods: {
     login: function () {

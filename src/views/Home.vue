@@ -6,10 +6,11 @@
       <v-row>
         <v-card flat :hover='true' class="ma-3"
           v-for="product of products"
-          :key="product.id"
+          :key="product._id"
+          style="width:230px"
         >
           <product-item :product="product"></product-item>
-          <v-btn block text :to="{ path: '/product/'+product.id }" class="text-lowercase">View More</v-btn>
+          <v-btn text :to="{ path: '/product/'+product._id }" class="text-lowercase">View More</v-btn>
         </v-card>
       </v-row>
     </v-container>

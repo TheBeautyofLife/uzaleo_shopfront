@@ -9,7 +9,7 @@
                   <span v-for="(error, i) in errors" :key="i">{{ error.message }}</span>
               </v-card>
 
-        <form @submit.prevent="login" class="pa-8">
+        <form @submit.prevent="register" class="pa-8">
           <h1 class="headline font-weight-medium mb-5"> Create Account</h1>
             <v-row>
                <v-text-field
@@ -31,16 +31,16 @@
               >
               </v-text-field>
                 </v-row>
-                   <v-row>
-              <v-text-field
-                color="#77BDD9"
-                v-model="email"
-                label="E-mail"
-                :rules="emailRules"
-                class="box ma-3"
-                required
-              >
-              </v-text-field>
+                <v-row>
+                  <v-text-field
+                    color="#77BDD9"
+                    v-model="email"
+                    label="E-mail"
+                    :rules="emailRules"
+                    class="box ma-3"
+                    required
+                  >
+                  </v-text-field>
                 </v-row>
                 <v-row>
                 <v-text-field
@@ -149,7 +149,7 @@ export default {
     }
   },
   methods: {
-    login: function () {
+    register: function () {
       /* let data = {
         username: this.username,
         role: this.role,

@@ -17,7 +17,15 @@ import {
   SET_LOGIN_REQUEST,
   SET_TOKEN,
   SET_USER,
-  SET_LOGIN_ERRORS
+  SET_LOGIN_ERRORS,
+  ALL_SHIPPING,
+  ALL_SHIPPING_SUCCESS,
+  SHIPPING_BY_ID,
+  SHIPPING_BY_ID_SUCCESS,
+  ADD_SHIPPING,
+  ADD_SHIPPING_SUCCESS,
+  REMOVE_SHIPPING,
+  REMOVE_SHIPPING_SUCCESS
 } from './mutation-types'
 
 Vue.use(VueCookies)
@@ -25,32 +33,33 @@ Vue.use(VueCookies)
 export const productActions = {
   allProducts ({ commit }) {
     commit(ALL_PRODUCTS)
-    axios.get(`${API_BASE}/products`).then(response => {
+    axios.get(`${API_BASE}/product/v1/products/`).then(response => {
       commit(ALL_PRODUCTS_SUCCESS, response.data)
     })
   },
   productById ({ commit }, payload) {
     commit(PRODUCT_BY_ID)
-    axios.get(`${API_BASE}/products/${payload}`).then(response => {
+    axios.get(`${API_BASE}/product/v1/products/${payload}`).then(response => {
       // console.log(payload, response.data)
       commit(PRODUCT_BY_ID_SUCCESS, response.data)
     })
   },
   addProduct ({ commit }, payload) {
     commit(ADD_PRODUCT)
-    axios.post(`${API_BASE}/products`, payload).then(response => {
+    axios.put(`${API_BASE}/product/v1/products/create`, payload).then(response => {
       commit(ADD_PRODUCT_SUCCESS, response.data)
+      location.reload()
     })
   },
   updateProduct ({ commit }, payload) {
     commit(UPDATE_PRODUCT)
-    axios.put(`${API_BASE}/products/${payload._id}`, payload).then(response => {
+    axios.put(`${API_BASE}/product/v1/product/${payload._id}`, payload).then(response => {
       commit(UPDATE_PRODUCT_SUCCESS, response.data)
     })
   },
   removeProduct ({ commit }, payload) {
     commit(REMOVE_PRODUCT)
-    axios.delete(`${API_BASE}/products/${payload}`, payload).then(response => {
+    axios.delete(`${API_BASE}/product/v1/product/${payload}`, payload).then(response => {
       // console.debug('response', response.data)
       commit(REMOVE_PRODUCT_SUCCESS, response.data)
     })
@@ -91,7 +100,7 @@ export const userActions = {
           const users = res.data.user
 
           Vue.$cookies.get('token', token)
-
+          location.reload()
           // eslint-disable-next-line dot-notation
           axios.defaults.headers.common['Authorization'] = token
           commit(SET_TOKEN, token, users)
@@ -108,12 +117,45 @@ export const userActions = {
   logout ({ commit }) {
     return new Promise((resolve, reject) => {
       commit('LOGOUT')
+      location.reload()
       Vue.$cookies.remove('_token')
       Vue.$cookies.remove('user')
       Vue.$cookies.remove('cart')
+      Vue.$cookies.remove('profile')
       // eslint-disable-next-line dot-notation
       delete axios.defaults.headers.common['Authorization']
       resolve()
+    })
+  }
+}
+
+export const shippingActions = {
+  allShipping ({ commit }) {
+    commit(ALL_SHIPPING)
+    axios.get(`${API_BASE}/shipping/v1/shipMethod/`).then(response => {
+      commit(ALL_SHIPPING_SUCCESS, response.data)
+    })
+  },
+  shippingById ({ commit }, payload) {
+    commit(SHIPPING_BY_ID)
+    axios.get(`${API_BASE}/shipping/v1/shipMethod/${payload}`).then(response => {
+      // console.log(payload, response.data)
+      commit(SHIPPING_BY_ID_SUCCESS, response.data)
+    })
+  },
+  addShipping ({ commit }, payload) {
+    commit(ADD_SHIPPING)
+    axios.post(`${API_BASE}/shipping/v1/shippingmethod/create`, payload).then(response => {
+      commit(ADD_SHIPPING_SUCCESS, response.data)
+      location.reload()
+    })
+  },
+  removeShipping ({ commit }, payload) {
+    commit(REMOVE_SHIPPING)
+    axios.delete(`${API_BASE}/shipping/v1/shipMethod/delete/${payload}`, payload).then(response => {
+      // console.debug('response', response.data)
+      commit(REMOVE_SHIPPING_SUCCESS, response.data)
+      location.reload()
     })
   }
 }

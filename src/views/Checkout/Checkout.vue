@@ -14,35 +14,41 @@
               </v-stepper-step>
 
               <v-stepper-content step="1">
-                 <v-card flat color="grey lighten-4" class="mb-9" height="120" width="510">
+                 <v-card flat color="grey lighten-5" class="mb-9" height="180" width="510">
                    <personal-details />
                  </v-card>
                  <v-btn color="#42424D" dark @click="e6 = 2">Continue</v-btn>
-                 <v-btn text color="grey" dark @click="e6 = 2" class="ml-3">Edit</v-btn>
+                 <v-btn text color="grey" dark @click="personaldetails = !personaldetails" class="ml-3">Edit</v-btn>
               </v-stepper-content>
 
               <v-stepper-step :complete="e6 > 2" step="2" color="blue lighten-2">
                 Shipping Details
               </v-stepper-step>
               <v-stepper-content step="2">
-                <v-card flat color="grey lighten-4" class="mb-12" height="200px" width="510">
-
+                <v-card flat color="grey lighten-5" class="mb-5" height="280px" width="510">
+                  <shipping-details />
                 </v-card>
-                <v-btn color="#42424D" dark @click="e6 = 3">Continue</v-btn>
-                <v-btn text>Cancel</v-btn>
+                <!-- Select shipping method -->
+                <v-card flat color="grey lighten-5" class="mb-12" height="240px" width="510">
+                  <shipping-option />
+                </v-card>
+                <!-- <v-btn color="#42424D" dark @click="e6 = 3">Continue</v-btn> -->
+                 <v-btn text color="grey" dark @click="shippingdetails = !shippingdetails" class="ml-3">Edit</v-btn>
               </v-stepper-content>
 
-            <v-stepper-step step="3" color="blue lighten-2">Payment Option</v-stepper-step>
+            <!-- <v-stepper-step step="3" color="blue lighten-2">Payment Option</v-stepper-step>
               <v-stepper-content step="3">
-                <v-card flat color="grey lighten-4" class="mb-12" height="200px" width="510"></v-card>
-                <v-btn color="#42424D" dark @click="e6 = 1">Continue</v-btn>
-                <v-btn text>Cancel</v-btn>
-              </v-stepper-content>
+                <v-card flat color="grey lighten-5" class="mb-5" height="280px" width="510">
+                  <payment-details @select-payment="PaymentOption" :selected="selected" />
+                </v-card>
+
+                <v-btn color="#42424D" dark @click="e6 = 2">Back</v-btn>
+              </v-stepper-content> -->
           </v-stepper>
         </v-layout>
       </v-col>
 
-      <v-col>
+      <v-col class="mr-6">
         <div class="title my-4 ml-4">Order Summary</div>
         <v-container class="elevation-1" style="border-radius:4px!important;">
           <template v-for="product in cart">
@@ -80,8 +86,9 @@
                 <v-btn
                   color="orange"
                   class="mt-5"
+                  to="/checkout/payment"
                 >
-                    Submit
+                    Continue to Payment
                 </v-btn>
               </v-layout>
             </v-card>
@@ -90,30 +97,81 @@
       </v-col>
     </v-row>
       </div>
+        <v-dialog
+          v-model="personaldetails"
+          scrollable
+          persistent
+          :overlay="false"
+          max-width="500px"
+          transition="dialog-transition"
+        >
+        <v-card>
+          <v-layout justify-end>
+            <v-btn class="ma-2" icon @click="personaldetails = !personaldetails">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-layout>
+          <personal-details-form />
+        </v-card>
+        </v-dialog>
+
+         <v-dialog
+          v-model="shippingdetails"
+          scrollable
+          persistent
+          :overlay="false"
+          max-width="500px"
+          transition="dialog-transition"
+        >
+        <v-card>
+          <v-layout justify-end>
+            <v-btn class="ma-2" icon @click="shippingdetails = !shippingdetails">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-layout>
+          <shipping-details-form />
+        </v-card>
+        </v-dialog>
       </v-layout>
   </v-content>
 </template>
 
 <script>
-import ProductCard from '../../components/checkout/checkout-product'
+import ProductCard from '@/components/checkout/checkout-product'
 import Header from '@/components/header/index.vue'
 
-import PersonalDetails from '../../components/checkout/block/PersonalDetails'
-// import Shipping from '/components/checkout/Shipping'
-// import Payment from '/components/checkout/Payment'
+import PersonalDetails from '@/components/checkout/block/PersonalDetails'
+import PersonalDetailsForm from '@/components/checkout/block/PersonalDetails_form'
+
+import Shipping from '@/components/checkout/block/shipping/Shipping'
+import ShippingForm from '@/components/checkout/block/shipping/Shipping_form'
+import ShippingOption from '@/components/checkout/block/shipping/Shipping_options'
+
+// import Payment from '@/components/checkout/block/payment/Payment'
 
 export default {
   data () {
     return {
       cart: this.$store.state.cart,
       e6: 1,
-      vat: 0.4
+      vat: 0.4,
+      personaldetails: false,
+      shippingdetails: false,
+      billingsdetails: false
+      // selected: {
+      //   Payment: false
+      // }
     }
   },
   components: {
     'header-main': Header,
     'product-card': ProductCard,
-    'personal-details': PersonalDetails
+    'personal-details': PersonalDetails,
+    'personal-details-form': PersonalDetailsForm,
+    'shipping-details': Shipping,
+    'shipping-details-form': ShippingForm,
+    'shipping-option': ShippingOption
+    // 'payment-details': Payment
   },
   methods: {
     totalPrice () {
@@ -124,15 +182,15 @@ export default {
       return this.vat * 100
     },
     getVat () {
-      console.log(this.totalPrice())
+      // console.log(this.totalPrice())
       return this.totalPrice() * this.vat
     },
     getPriceTotal () {
       return this.getVat() + this.totalPrice()
-    },
-    methodThatForcesUpdate () {
-      window.location.reload()
     }
+    // PaymentOption (selected) {
+    //   return console.log('payment', selected)
+    // }
   }
 }
 </script>

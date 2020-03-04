@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import ProductCard from '../../components/checkout/cart-product'
+import ProductCard from '@/components/checkout/cart-product'
 import Header from '@/components/header/index.vue'
 
 export default {
@@ -63,7 +63,6 @@ export default {
   },
   methods: {
     totalPrice () {
-      console.log(this.$cookies.get('_qty_', this.product))
       return this.cart.reduce((current, next) =>
         current + (next.price * next.quantity), 0)
     },
@@ -71,11 +70,15 @@ export default {
       return this.vat * 100
     },
     getVat () {
-      console.log(this.totalPrice())
+      // console.log(this.totalPrice())
       return this.totalPrice() * this.vat
     },
     getPriceTotal () {
       return this.getVat() + this.totalPrice()
+      // eslint-disable-next-line no-unreachable
+    },
+    getProduct () {
+      return console.log(this.product)
     },
     methodThatForcesUpdate () {
       window.location.reload()

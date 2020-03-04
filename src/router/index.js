@@ -8,7 +8,7 @@ import store from '../store/index'
 **/
 import ProductRoute from './modules/Products'
 import AuthRoute from './modules/Auth'
-// import DashboardRoute from './modules/Dashboard'
+import DashboardRoute from './modules/Dashboard'
 
 Vue.use(VueRouter)
 
@@ -20,7 +20,7 @@ const baseRoutes = [
   }
 ]
 
-const routes = baseRoutes.concat(ProductRoute, AuthRoute)
+const routes = baseRoutes.concat(ProductRoute, AuthRoute, DashboardRoute)
 
 const router = new VueRouter({
   mode: 'history',

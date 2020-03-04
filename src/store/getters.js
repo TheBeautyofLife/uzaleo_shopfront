@@ -23,3 +23,16 @@ export const userGetters = {
   },
   user: state => state.user
 }
+
+export const shippingGetters = {
+  allShipping: (state, getters) => {
+    return state.shippings
+  },
+  shippingyId: (state, getters) => id => {
+    if (getters.allShipping.length > 0) {
+      return getters.allShipping.filter(s => s._id === id)[0]
+    } else {
+      return state.shipping
+    }
+  }
+}
