@@ -1,34 +1,25 @@
 <template>
 <v-container>
   <v-layout column ml-6 mt-2>
-    <v-row>
-      <v-layout column mb-3>
-         <strong>Choose payment option</strong>
-      </v-layout>
-    </v-row>
+    <strong>Payment Method</strong>
     <div id="selection option">
-    <v-row>
-        <v-layout column>
-           <v-radio-group v-model="selected.Payment" @change="save">
-               <v-radio value="cash">
+        <v-radio-group v-model="selected.Payment" @change="save">
+             <v-layout row align-center>
+               <v-radio value="cash" class="mr-5 pt-2">
                    <template v-slot:label>
-                      <v-layout row align-center ml-1>
                          <v-icon color="black" size="40">mdi-cash</v-icon>
                          <span class="ml-4 text-capitalize">cash on delivery</span>
-                      </v-layout>
                    </template>
                </v-radio>
-               <v-radio value="visa">
+               <v-radio value="visa" class="ml-5">
                     <template v-slot:label>
-                        <v-layout row align-center ml-1>
-                            <img :src="require('@/assets/icons/visa.svg')" width="50"/>
-                            <span class="ml-4 text-capitalize">visa</span>
-                        </v-layout>
+                          <v-icon color="black" size="35">mdi-credit-card</v-icon>
+                            <!-- <img :src="require('@/assets/icons/visa.svg')" width="50"/> -->
+                            <span class="ml-4 text-capitalize">Credit card</span>
                     </template>
                </v-radio>
-           </v-radio-group>
-         </v-layout>
-    </v-row>
+             </v-layout>
+        </v-radio-group>
      <v-row>
         <v-layout column mt-4>
 

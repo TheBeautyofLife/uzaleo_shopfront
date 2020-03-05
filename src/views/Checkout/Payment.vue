@@ -4,19 +4,25 @@
     <v-layout justify-center align-center align-content-center my-12>
       <div v-if="cart.length > 0">
     <v-col>
-        <v-card flat color="grey lighten-5" class="mb-5" height="210px" width="80vw">
-            <payment-details @select-payment="PaymentOption" :selected="selected" />
+        <v-card flat color="grey lighten-5" class="mb-5" height="150px" width="50vw">
+            <payment-details class="ml-6" @select-payment="PaymentOption" :selected="selected" />
         </v-card>
-        <div v-show="visaPaymentsShow">
-           <visa-payment-form />
+        <div class="pt-4" v-show="visaPaymentsShow">
+           <visa-payment-form :visa='visa'/>
+           <v-layout row wrap mt-5 justify-center>
+             <v-btn color="success">Submit</v-btn>
+           </v-layout>
         </div>
 
        <div v-show="cashPaymentsShow">
-            <v-card>
-                <v-card-title class="text-capitalize">Cash</v-card-title>
-            </v-card>
-        </div>
+          <v-card>
+              <v-card-title class="text-capitalize">Cash</v-card-title>
+          </v-card>
+       </div>
     </v-col>
+    <v-dialog v-model="successful" max-width="680" persistent>
+      <span>Your Order</span>
+    </v-dialog>
       </div>
       </v-layout>
   </v-content>
@@ -40,6 +46,7 @@ export default {
       selected: {
         Payment: false
       },
+      visa: {},
       visaPaymentsShow: false,
       cashPaymentsShow: false
     }
@@ -75,7 +82,7 @@ export default {
     visaPayment () {
       this.visaPaymentsShow = true
       this.cashPaymentsShow = false
-      return console.log('Visa Payments')
+      // return console.log('Visa Payments')
     },
     cashPayment () {
       this.cashPaymentsShow = true
