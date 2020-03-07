@@ -54,7 +54,7 @@ export default {
   data () {
     return {
       cart: this.$store.state.cart,
-      vat: 0.4
+      vat: 0.2
     }
   },
   components: {

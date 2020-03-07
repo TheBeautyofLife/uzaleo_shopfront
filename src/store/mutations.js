@@ -22,7 +22,13 @@ import {
   ALL_SHIPPING,
   ALL_SHIPPING_SUCCESS,
   REMOVE_SHIPPING,
-  REMOVE_SHIPPING_SUCCESS
+  REMOVE_SHIPPING_SUCCESS,
+  ADD_ORDER,
+  ADD_ORDER_SUCCESS,
+  ALL_ORDERS,
+  ALL_ORDERS_SUCCESS,
+  ORDER_BY_ID,
+  ORDER_BY_ID_SUCCESS
 } from './mutation-types'
 
 export const productMutations = {
@@ -130,6 +136,32 @@ export const shippingMutations = {
     const index = state.shippings.findIndex(s => s._id === payload)
     // console.debug('index', index)
     state.shippings.splice(index, 1)
+  },
+  [ERROR_MSG] (state, payload) {}
+}
+
+export const ordersMutations = {
+  [ALL_ORDERS] (state) {
+    state.showLoader = true
+    // this[]
+  },
+  [ALL_ORDERS_SUCCESS] (state, payload) {
+    state.showLoader = false
+    state.shippings = payload
+  },
+  [ORDER_BY_ID] (state) {
+    state.showLoader = true
+  },
+  [ORDER_BY_ID_SUCCESS] (state, payload) {
+    state.showLoader = false
+    state.product = payload
+  },
+  [ADD_ORDER]: (state, payload) => {
+    state.showLoader = true
+  },
+  [ADD_ORDER_SUCCESS]: (state, payload) => {
+    state.showLoader = false
+    state.shippings.push(payload)
   },
   [ERROR_MSG] (state, payload) {}
 }

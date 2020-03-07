@@ -23,6 +23,7 @@ export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 export const ERROR_MSG = 'ERROR_MSG'
 export const SUCCESS_MSG = 'SUCCESS_MSG'
 
+/* Mutations for User */
 export const SET_LOGIN_REQUEST = 'SET_LOGIN_REQUEST'
 export const SET_TOKEN = 'SET_TOKEN'
 
@@ -30,6 +31,7 @@ export const SET_LOGIN_ERRORS = 'SET_LOGIN_ERRORS'
 export const LOGOUT = 'LOGOUT'
 export const SET_USER = 'SET_USER'
 
+/* Mutations for Shipping */
 export const ALL_SHIPPING = 'ALL_SHIPPING'
 export const ALL_SHIPPING_SUCCESS = 'ALL_SHIPPING_SUCCESS'
 export const ALL_SHIPPING_FAILURE = 'ALL_SHIPPING_FAILURE'
@@ -44,3 +46,15 @@ export const ADD_SHIPPING_FAILURE = 'ADD_SHIPPING_FAILURE'
 export const REMOVE_SHIPPING = 'REMOVE_SHIPPING'
 export const REMOVE_SHIPPING_SUCCESS = 'REMOVE_SHIPPING_SUCCESS'
 export const REMOVE_SHIPPING_FAILURE = 'REMOVE_SHIPPING_FAILURE'
+
+/* Mutations for Orders */
+export const ALL_ORDERS = 'ALL_ORDERS'
+export const ALL_ORDERS_SUCCESS = 'ALL_ORDERS_SUCCESS'
+export const ALL_ORDERS_FAILURE = 'ALL_ORDERS_FAILURE'
+
+export const ORDER_BY_ID = 'ORDER_BY_ID'
+export const ORDER_BY_ID_SUCCESS = 'ORDER_BY_ID_SUCCESS'
+
+export const ADD_ORDER = 'ADD_ORDER'
+export const ADD_ORDER_SUCCESS = 'ADD_ORDER_SUCCESS'
+export const ADD_ORDER_FAILURE = 'ADD_ORDER_FAILURE'

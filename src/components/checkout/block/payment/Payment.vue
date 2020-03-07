@@ -1,35 +1,35 @@
 <template>
 <v-container>
   <v-layout column ml-6 mt-2>
-    <strong>Payment Method</strong>
     <div id="selection option">
-        <v-radio-group v-model="selected.Payment" @change="save">
-             <v-layout row align-center>
-               <v-radio value="cash" class="mr-5 pt-2">
+       <strong>Payment Method</strong>
+        <v-radio-group v-model="selected.method" @change="save">
+          <v-layout row align-center ml-3>
+               <v-radio value="CASH" class="mr-4">
                    <template v-slot:label>
-                         <v-icon color="black" size="40">mdi-cash</v-icon>
-                         <span class="ml-4 text-capitalize">cash on delivery</span>
+                         <v-icon color="black" size="33">mdi-cash</v-icon>
+                         <span class="ml-2 text-capitalize">cash on delivery</span>
                    </template>
                </v-radio>
-               <v-radio value="visa" class="ml-5">
+
+               <v-radio value="VISA" class="mr-4">
                     <template v-slot:label>
-                          <v-icon color="black" size="35">mdi-credit-card</v-icon>
+                          <v-icon color="black" size="30">mdi-credit-card</v-icon>
                             <!-- <img :src="require('@/assets/icons/visa.svg')" width="50"/> -->
-                            <span class="ml-4 text-capitalize">Credit card</span>
+                            <span class="ml-2 text-capitalize">Credit card</span>
                     </template>
                </v-radio>
-             </v-layout>
+
+               <v-radio value="MPESA" class="mb-2">
+                  <template v-slot:label>
+                    <v-icon color="black" size="30">mdi-credit-card</v-icon>
+                      <!-- <img :src="require('@/assets/icons/visa.svg')" width="50"/> -->
+                      <span class="ml-2 text-capitalize">Mpesa</span>
+                  </template>
+               </v-radio>
+
+          </v-layout>
         </v-radio-group>
-     <v-row>
-        <v-layout column mt-4>
-
-       </v-layout>
-    </v-row>
-    <v-row>
-        <v-layout column mt-4>
-
-       </v-layout>
-    </v-row>
     </div>
   </v-layout>
 </v-container>

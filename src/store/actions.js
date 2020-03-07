@@ -25,7 +25,13 @@ import {
   ADD_SHIPPING,
   ADD_SHIPPING_SUCCESS,
   REMOVE_SHIPPING,
-  REMOVE_SHIPPING_SUCCESS
+  REMOVE_SHIPPING_SUCCESS,
+  ADD_ORDER,
+  ADD_ORDER_SUCCESS,
+  ALL_ORDERS,
+  ALL_ORDERS_SUCCESS,
+  ORDER_BY_ID,
+  ORDER_BY_ID_SUCCESS
 } from './mutation-types'
 
 Vue.use(VueCookies)
@@ -156,6 +162,29 @@ export const shippingActions = {
       // console.debug('response', response.data)
       commit(REMOVE_SHIPPING_SUCCESS, response.data)
       location.reload()
+    })
+  }
+}
+
+export const ordersActions = {
+  allOrders ({ commit }) {
+    commit(ALL_ORDERS)
+    axios.get(`${API_BASE}/order/v1/order/`).then(response => {
+      commit(ALL_ORDERS_SUCCESS, response.data)
+    })
+  },
+  orderById ({ commit }, payload) {
+    commit(ORDER_BY_ID)
+    axios.get(`${API_BASE}/order/v1/order/${payload}`).then(response => {
+      // console.log(payload, response.data)
+      commit(ORDER_BY_ID_SUCCESS, response.data)
+    })
+  },
+  addOrders ({ commit }, payload) {
+    commit(ADD_ORDER)
+    axios.post(`${API_BASE}/order/v1/order/create `, payload).then(response => {
+      commit(ADD_ORDER_SUCCESS, response.data)
+      // location.reload()
     })
   }
 }

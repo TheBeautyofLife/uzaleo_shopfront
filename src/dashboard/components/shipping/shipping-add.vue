@@ -42,6 +42,9 @@ export default {
     //
     }
   },
+  mounted: {
+    //
+  },
   methods: {
     addShipping () {
       this.save()

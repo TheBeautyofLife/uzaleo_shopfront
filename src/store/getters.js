@@ -36,3 +36,16 @@ export const shippingGetters = {
     }
   }
 }
+
+export const ordersGetters = {
+  allOrders: (state, getters) => {
+    return state.orders
+  },
+  orderById: (state, getters) => id => {
+    if (getters.allOrders.length > 0) {
+      return getters.allOrders.filter(s => s._id === id)[0]
+    } else {
+      return state.order
+    }
+  }
+}

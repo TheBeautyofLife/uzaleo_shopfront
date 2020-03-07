@@ -3,9 +3,9 @@ import Vuex from 'vuex'
 import VuexPersistence from 'vuex-persist'
 import VueCookies from 'vue-cookies'
 
-import { productGetters, userGetters, shippingGetters } from './getters'
-import { productMutations, cartMutations, userMutations, shippingMutations } from './mutations'
-import { productActions, userActions, shippingActions } from './actions'
+import { productGetters, userGetters, shippingGetters, ordersGetters } from './getters'
+import { productMutations, cartMutations, userMutations, shippingMutations, ordersMutations } from './mutations'
+import { productActions, userActions, shippingActions, ordersActions } from './actions'
 
 Vue.use(Vuex)
 Vue.use(VueCookies)
@@ -39,10 +39,12 @@ export default new Vuex.Store({
     users: [],
     status: '',
     shipping: {},
-    shippings: []
+    shippings: [],
+    order: {},
+    orders: []
   },
-  mutations: Object.assign({}, productMutations, cartMutations, userMutations, shippingMutations),
-  getters: Object.assign({}, productGetters, userGetters, shippingGetters),
-  actions: Object.assign({}, productActions, userActions, shippingActions),
+  mutations: Object.assign({}, productMutations, cartMutations, userMutations, shippingMutations, ordersMutations),
+  getters: Object.assign({}, productGetters, userGetters, shippingGetters, ordersGetters),
+  actions: Object.assign({}, productActions, userActions, shippingActions, ordersActions),
   plugins: [vuexCookie.plugin]
 })

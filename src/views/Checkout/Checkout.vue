@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 <template>
   <v-content>
      <header-main />
@@ -25,15 +26,15 @@
                 Shipping Details
               </v-stepper-step>
               <v-stepper-content step="2">
-                <v-card flat color="grey lighten-5" class="mb-5" height="280px" width="510">
-                  <shipping-details />
-                </v-card>
+                  <v-card flat color="grey lighten-5" class="mb-5" height="280px" width="510">
+                    <shipping-details />
+                  </v-card>
                 <!-- Select shipping method -->
-                <v-card flat color="grey lighten-5" class="mb-12" height="240px" width="510">
-                  <shipping-option />
-                </v-card>
-                <!-- <v-btn color="#42424D" dark @click="e6 = 3">Continue</v-btn> -->
-                 <v-btn text color="grey" dark @click="shippingdetails = !shippingdetails" class="ml-3">Edit</v-btn>
+                  <v-card flat color="grey lighten-5" class="mb-12" height="240px" width="510">
+                    <shipping-option @select-shipping="ShippingOption" :selectedShipping="selectedShipping" />
+                  </v-card>
+                <v-btn color="#42424D" dark @click="e6 = 1">Back</v-btn>
+                <v-btn text color="grey" dark @click="shippingdetails = !shippingdetails" class="ml-3">Edit</v-btn>
               </v-stepper-content>
 
             <!-- <v-stepper-step step="3" color="blue lighten-2">Payment Option</v-stepper-step>
@@ -58,13 +59,13 @@
          <v-btn
             text
             color="grey darken-1"
-            class="mt-4 ml-12"
+            class="mt-4 "
             to="/cart"
           >
             Modify to cart
           </v-btn>
           <!--  -- Totals -- -->
-            <v-layout my-12>
+            <v-layout my-12 ml-3>
                 <v-card flat width="230" >
                          <v-row class="ml-2">
                 <span class="subtitle-1 font-weight-medium mr-3">Subtotal:</span>
@@ -73,6 +74,10 @@
               <v-row  class="ml-2">
                 <span class="subtitle-1 font-weight-medium mr-2">VAT (<small>{{ getVatPerc() }}%</small>) :</span>
                 <p class="subtitle-1 font-weight-bold">  Ksh {{ getVat() }}.00</p>
+              </v-row>
+              <v-row  class="ml-2">
+                <span class="subtitle-1 font-weight-medium mr-2">Delivery Fee :</span>
+                <p class="subtitle-1 font-weight-bold">  Ksh {{ getDeliveryFee() }}.00</p>
               </v-row>
               <v-divider class="mr-6" />
                <v-row  class="ml-2">
@@ -140,8 +145,8 @@
 import ProductCard from '@/components/checkout/checkout-product'
 import Header from '@/components/header/index.vue'
 
-import PersonalDetails from '@/components/checkout/block/PersonalDetails'
-import PersonalDetailsForm from '@/components/checkout/block/PersonalDetails_form'
+import PersonalDetails from '@/components/checkout/block/personal/PersonalDetails'
+import PersonalDetailsForm from '@/components/checkout/block/personal/PersonalDetails_form'
 
 import Shipping from '@/components/checkout/block/shipping/Shipping'
 import ShippingForm from '@/components/checkout/block/shipping/Shipping_form'
@@ -154,13 +159,12 @@ export default {
     return {
       cart: this.$store.state.cart,
       e6: 1,
-      vat: 0.4,
+      vat: 0.2,
       personaldetails: false,
       shippingdetails: false,
-      billingsdetails: false
-      // selected: {
-      //   Payment: false
-      // }
+      billingsdetails: false,
+      selectedShipping: {},
+      shippingItem: {}
     }
   },
   components: {
@@ -173,6 +177,16 @@ export default {
     'shipping-option': ShippingOption
     // 'payment-details': Payment
   },
+  created () {
+    if (this.shippings.length === 0) {
+      this.$store.dispatch('allShipping')
+    }
+  },
+  computed: {
+    shippings () {
+      return this.$store.getters.allShipping
+    }
+  },
   methods: {
     totalPrice () {
       return this.cart.reduce((current, next) =>
@@ -181,16 +195,56 @@ export default {
     getVatPerc () {
       return this.vat * 100
     },
+    getDeliveryFee () {
+      // eslint-disable-next-line no-unused-vars
+      const shippingId = this.shippings.map(v => ({ id: v._id }))
+      const shippingfee = this.shippings.map(v => ({ shipping_fee: v.shipping_fee }))
+
+      // if (shippingId[0].id === this.selectedShipping.shipping_method) {
+      //   const shippingFee0 = shippingfee
+      //   return shippingFee0[0].shipping_fee
+      // } else if (shippingId[1].id === this.selectedShipping.shipping_method) {
+      //   const shippingFee1 = shippingfee
+      //   return shippingFee1[1].shipping_fee
+      // }
+
+      for (let i = 0; i < shippingId.length; i++) {
+        // const element = array[index]
+        if (shippingId[i].id === this.selectedShipping.shipping_method) {
+          const shippingFee = shippingfee
+          for (let j = i; j < shippingFee.length; j++) {
+            return shippingFee[j].shipping_fee
+          }
+        }
+      }
+      return 0
+    },
     getVat () {
       // console.log(this.totalPrice())
       return this.totalPrice() * this.vat
     },
     getPriceTotal () {
-      return this.getVat() + this.totalPrice()
+      const shippingfee = this.getDeliveryFee()
+      console.log(shippingfee)
+
+      if (this.getDeliveryFee() == null || this.getDeliveryFee() === 0) {
+        console.log('red')
+        return this.getVat() + this.totalPrice()
+      } else if (this.getDeliveryFee() != null || this.getDeliveryFee() !== 0) {
+        return this.getVat() + this.totalPrice() + shippingfee
+      } else {
+        console.log('out')
+      }
+    },
+    ShippingOption (selectedShipping) {
+      this.selectedShippingOption()
+      this.getDeliveryFee()
+      return selectedShipping
+    },
+    selectedShippingOption () {
+      // console.log(this.selectedShipping)
+      this.$cookies.set('_shtype', this.selectedShipping.shipping_method, { expires: '10m' })
     }
-    // PaymentOption (selected) {
-    //   return console.log('payment', selected)
-    // }
   }
 }
 </script>
