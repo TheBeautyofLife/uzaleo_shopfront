@@ -28,7 +28,11 @@ import {
   ALL_ORDERS,
   ALL_ORDERS_SUCCESS,
   ORDER_BY_ID,
-  ORDER_BY_ID_SUCCESS
+  ORDER_BY_ID_SUCCESS,
+  ADD_IMAGE,
+  ADD_IMAGE_SUCCESS,
+  REMOVE_IMAGE,
+  REMOVE_IMAGE_SUCCESS
 } from './mutation-types'
 
 export const productMutations = {
@@ -81,7 +85,9 @@ export const productMutations = {
 
 export const cartMutations = {
   [ADD_TO_CART]: (state, payload) => {
+    // console.log(payload)
     state.cart.push(payload)
+    // console.log(this.state.cart.push(payload))
   },
   [REMOVE_FROM_CART]: (state, payload) => {
     const index = state.cart.findIndex(p => p._id === payload)
@@ -147,21 +153,42 @@ export const ordersMutations = {
   },
   [ALL_ORDERS_SUCCESS] (state, payload) {
     state.showLoader = false
-    state.shippings = payload
+    state.orders = payload
   },
   [ORDER_BY_ID] (state) {
     state.showLoader = true
   },
   [ORDER_BY_ID_SUCCESS] (state, payload) {
     state.showLoader = false
-    state.product = payload
+    state.order = payload
   },
   [ADD_ORDER]: (state, payload) => {
     state.showLoader = true
+    // state.cart.shift(payload)
   },
   [ADD_ORDER_SUCCESS]: (state, payload) => {
     state.showLoader = false
-    state.shippings.push(payload)
+    state.orders.push(payload)
+  },
+  [ERROR_MSG] (state, payload) {}
+}
+
+export const imageMutations = {
+  [ADD_IMAGE]: (state, payload) => {
+    state.showLoader = true
+  },
+  [ADD_IMAGE_SUCCESS]: (state, payload) => {
+    state.showLoader = false
+    state.images.push(payload)
+  },
+  [REMOVE_IMAGE]: (state, payload) => {
+    state.showLoader = true
+  },
+  [REMOVE_IMAGE_SUCCESS]: (state, payload) => {
+    state.showLoader = false
+    const index = state.images.findIndex(s => s._id === payload)
+    // console.debug('index', index)
+    state.images.splice(index, 1)
   },
   [ERROR_MSG] (state, payload) {}
 }

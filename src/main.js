@@ -8,7 +8,7 @@ import '@mdi/font/css/materialdesignicons.css'
 import Axios from 'axios'
 import VueCookies from 'vue-cookies'
 import * as VeeValidate from 'vee-validate'
-import * as ProductZoomer from 'vue-product-zoomer'
+// import ProductZoomer from 'vue-product-zoomer'
 import VueLogger from 'vuejs-logger'
 
 const isProduction = process.env.NODE_ENV === 'production'
@@ -24,7 +24,7 @@ const options = {
 }
 
 Vue.use(VueLogger, options)
-Vue.use(ProductZoomer)
+
 Vue.use(VeeValidate)
 Vue.use(VueCookies)
 

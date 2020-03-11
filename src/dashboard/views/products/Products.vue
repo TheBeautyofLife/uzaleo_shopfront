@@ -56,11 +56,12 @@
         </v-layout>
       </v-flex>
     </v-container>
+
     <v-dialog
       v-model="addproduct"
       max-width="500px"
     >
-        <add-products @save-product="addProduct" :model="model" />
+      <add-products @save-product="addProduct" :model="model" />
     </v-dialog>
 
     <div
@@ -115,7 +116,7 @@ export default {
   },
   methods: {
     addProduct (model) {
-      console.log('model', model)
+      // console.log('model', model)
       this.$store.dispatch('addProduct', model).then(() => {
         this.addproduct = false
         this.model = ''

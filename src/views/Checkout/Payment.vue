@@ -7,38 +7,39 @@
        <v-card flat color="grey lighten-5" class="mb-5" height="195px" width="52vw">
            <v-layout column>
             <div id="selection option" class="ml-6 pt-2">
-       <strong>Payment Method</strong>
-          <template v-for="product in cart">
-             <product-card class="pb-0 mb-0" :product="product" :key="product.id"></product-card>
-          </template>
-    </div>
+               <strong>Payment Method</strong>
+                <template v-for="product in cart">
+                  <product-card class="pb-0 mb-0" :product="product" :key="product.id"></product-card>
+                </template>
+            </div>
            </v-layout>
        </v-card>
 
         <v-card flat color="grey lighten-5" class="mb-5" height="190px" width="52vw">
             <payment-details @select-payment="PaymentOption" :selected="selected" />
         </v-card>
+
         <div class="pt-4" v-show="visaPaymentsShow">
           <v-content class="ml-2">
-      <p class="title text-capitalize">Your Payment Details</p>
-      <small class="ml-3">Your information posted here is secure</small>
-      <div id="visa-payment-details">
-          <form>
-              <v-card width="50vw" class="mt-5 pb-5">
-                  <v-card flat class="">
-                    <v-layout row justify-center pa-4>
-                      <p class="stripeError" v-if="stripeError">
-                        {{stripeError}}
-                      </p>
-                    </v-layout>
-                  </v-card>
+            <p class="title text-capitalize">Your Payment Details</p>
+              <small>Your information posted here is secure</small>
+                  <div id="visa-payment-details">
+                    <form>
+                      <v-layout justify-center>
+                          <v-card width="48vw" class="mt-5 pb-5">
+                            <v-card flat class="">
+                              <v-layout row justify-center pa-4>
+                                <p class="stripeError" v-if="stripeError">
+                                    {{ stripeError }}
+                                </p>
+                              </v-layout>
+                          </v-card>
 
-                  <v-layout row wrap class="ml-5 mr-4">
+                    <v-layout row wrap class="ml-5 mr-4">
                       <v-col cols='12'>
                        <v-subheader class="grey--text pl-0 subheader">CARD NUMBER</v-subheader>
                        <div id="card-number" class="grey--text mt-0">
                         <v-text-field
-                          :rules="rules"
                           v-model="card.number"
                           counter="19"
                           maxlength="19"
@@ -48,7 +49,7 @@
                             {{ cardNumberError }}
                         </span>
                         </div>
-                     </v-col>
+                      </v-col>
 
                      <v-col col='4'>
                       <v-subheader class="grey--text pl-0 subheader">EXPIRY DATE</v-subheader>
@@ -85,18 +86,29 @@
                     </v-col>
                   </v-layout>
                 </v-card>
-              <v-layout row wrap mt-5 justify-center>
-                <v-btn  @click.prevent="submitFormToCreateToken()" color="success">Submit</v-btn>
               </v-layout>
-              </form>
-          </div>
-      </v-content>
+                  <v-layout row mt-8 justify-center>
+                    <v-btn  width="25vw" height="5vh" @click.prevent="submitFormToCreateToken()" color="success">Submit</v-btn>
+                  </v-layout>
+                </form>
+              </div>
+          </v-content>
         </div>
 
+        <!--  Cash Payments -->
        <div v-show="cashPaymentsShow">
-          <v-card>
-              <v-card-title class="text-capitalize">Cash</v-card-title>
-          </v-card>
+         <v-content class="ml-2">
+            <p class="title text-capitalize"> Confirm Your Billing Details</p>
+              <small>Your information posted here is secure</small>
+               <v-layout column justify-center align-center>
+                  <v-card width="48vw" class="mt-5 pb-5">
+                    <user-billing />
+                  </v-card>
+                  <v-layout row mt-8 justify-center>
+                      <v-btn width="25vw" height="5vh" @click.prevent="submitcashPayment()" color="success">Submit</v-btn>
+                  </v-layout>
+               </v-layout>
+         </v-content>
        </div>
 
        <div v-show="mpesaPaymentsShow">
@@ -105,9 +117,46 @@
           </v-card>
        </div>
     </v-col>
-    <!-- <v-dialog v-model="successful" max-width="680" persistent>
-      <span>Your Order</span>
-    </v-dialog> -->
+
+   <v-dialog
+    v-model="successful"
+    max-width="680"
+    persistent
+    >
+     <v-card>
+       <v-layout justify-end pr-4 pt-4>
+         <a @click="closeredirect()">
+           <v-icon  class="mr-2"> mdi-close</v-icon> <span class="mr-3 grey--text">close</span>
+          </a>
+       </v-layout>
+
+       <v-layout column wrap pa-4 justify-center align-center>
+         <v-icon size="40" class="mb-6 mt-4" color="green">mdi-checkbox-marked-circle-outline</v-icon>
+          <span class="title mb-4">Order Successfully Created</span>
+       </v-layout>
+     </v-card>
+    </v-dialog>
+
+   <v-dialog
+    v-model="unsuccessful"
+    max-width="680"
+    persistent
+    >
+     <v-card>
+       <v-layout justify-end pr-4 pt-4>
+         <a flat @click="closereturn()">
+           <v-icon class="mr-2"> mdi-close</v-icon> <span class="mr-3 grey--text">close</span>
+          </a>
+       </v-layout>
+
+       <v-layout column wrap pa-4 justify-center align-center>
+         <v-icon size="40" class="mb-6 mt-4" color="red">mdi-close-circle-outline</v-icon>
+          <span class="title mb-4">Oupss...</span>
+          <p class="body-2"> There must have been an error, please try again</p>
+       </v-layout>
+     </v-card>
+    </v-dialog>
+
       </div>
       </v-layout>
   </v-content>
@@ -117,13 +166,9 @@
 import axios from 'axios'
 import { API_BASE } from '@/config'
 import Header from '@/components/header/index.vue'
-
-// import Shipping from '@/components/checkout/block/shipping/Shipping'
-// import ShippingOption from '@/components/checkout/block/shipping/Shipping_options'
-
-// import { mask } from 'vue-the-mask'
 import Payment from '@/components/checkout/block/payment/Payment'
 import ProductView from '@/components/checkout/block/product/product-view'
+import UserBillingInfo from '@/components/checkout/block/payment/Billing'
 
 export default {
   // directives: {
@@ -161,10 +206,11 @@ export default {
       cardNumberError: '',
 
       loading: false,
+      successful: false,
+      unsuccessful: false,
       visaPaymentsShow: false,
       cashPaymentsShow: false,
-      mpesaPaymentsShow: false,
-      rules: [v => v.length <= 19 || 'Max 16 characters']
+      mpesaPaymentsShow: false
     }
   },
   components: {
@@ -172,7 +218,8 @@ export default {
     // 'shipping-details': Shipping,
     // 'shipping-option': ShippingOption,
     'payment-details': Payment,
-    'product-card': ProductView
+    'product-card': ProductView,
+    'user-billing': UserBillingInfo
   },
   methods: {
     setUpStripe () {
@@ -269,6 +316,7 @@ export default {
 
             const order = {
               stripetoken: this.token,
+              customer_id: this.user._id,
               payment_method: this.selected.method,
               product: this.Product = this.cart.map(v => ({ product_id: v._id, product_qty: v.quantity })),
               shipping_id: this.$cookies.get('_shtype'),
@@ -276,12 +324,16 @@ export default {
             }
 
             this.$store.dispatch('addOrders', order)
-              .then(res => {
-                console.log('submitted', res.data)
-                // this.$cookies.remove('_shtype')
-                // this.reset()
-                // this.visaPaymentsShow = false
+              .then(() => {
+                // console.log('submitted', res.data)
+                this.reset()
+                this.$cookies.remove('_shtype')
+                this.successful = true
+                this.visaPaymentsShow = false
                 // location.reload()
+              }).catch(err => {
+                console.log(err)
+                this.unsuccessful = true
               })
 
             // console.log(order)
@@ -333,6 +385,39 @@ export default {
       }
     },
 
+    submitcashPayment () {
+      axios.get(`${API_BASE}/tax/v1/vat/`).then(res => {
+        // eslint-disable-next-line no-return-assign
+        this.tax = res.data
+
+        // Getting the individual item from list
+        this.vat = this.tax.map(t => ({ tax_id: t._id }))
+        const vatItem = this.vat[0].tax_id
+
+        const order = {
+          customer_id: this.user._id,
+          payment_method: this.selected.method,
+          product: this.Product = this.cart.map(v => ({ product_id: v._id, product_qty: v.quantity })),
+          shipping_id: this.$cookies.get('_shtype'),
+          tax_id: vatItem
+        }
+
+        this.$store.dispatch('addOrders', order)
+          .then(res => {
+            // console.log('submitted', res.data)
+            this.reset()
+            // this.$cookies.remove('_shtype')
+            this.successful = true
+            this.cashPaymentsShow = false
+          }).catch(err => {
+            console.log(err)
+            this.unsuccessful = true
+          })
+
+        // console.log(order)
+      })
+    },
+
     visaPayment () {
       this.visaPaymentsShow = true
       this.mpesaPaymentsShow = false
@@ -342,17 +427,37 @@ export default {
       this.cashPaymentsShow = true
       this.mpesaPaymentsShow = false
       this.visaPaymentsShow = false
-      return console.log('cash Payments')
+      // return console.log('cash Payments')
     },
     mpesaPayment () {
       this.mpesaPaymentsShow = true
       this.cashPaymentsShow = false
       this.visaPaymentsShow = false
       return console.log('cash Payments')
+    },
+
+    closeredirect () {
+      this.successful = false
+      if (this.successful === false) {
+        this.$router.push('/')
+      }
+    },
+    closereturn () {
+      this.unsuccessful = false
     }
   },
+
   mounted () {
     this.setUpStripe()
+  },
+
+  computed: {
+    user () {
+      const getItems = this.$cookies.get('user')
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      // console.log(getItems)
+      return getItems
+    }
   }
 }
 </script>

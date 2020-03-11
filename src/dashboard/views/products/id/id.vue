@@ -14,44 +14,13 @@
       <span class="headline font-weight-medium ml-12 my-6">{{product.name}}</span>
             <view-product-item :product="product" />
             <v-btn @click.stop="uploadImg = true" color="orange" class="ml-9">Upload</v-btn>
-
       <v-dialog
           v-model="uploadImg"
-          max-width="500px"
+          max-width="80vw"
           transition="dialog-transition"
       >
         <v-card>
-            <v-card-title>
-                Upload
-            </v-card-title>
-            <form @submit.prevent="uploadImages" class="pa-5">
-                <v-layout row>
-                     <v-img :src="image1" width="120" class="ma-2" />
-                     <v-img :src="image2" width="120" class="ma-2" />
-                     <v-img :src="image3" width="120" class="ma-2" />
-                </v-layout>
-
-                <v-text-field
-                    name="Image1"
-                    label="Image url 1"
-                    v-model="image1"
-                >
-               </v-text-field>
-                 <v-text-field
-                    name="Image2"
-                    label="Image url 2"
-                    v-model="image2"
-                ></v-text-field>
-                 <v-text-field
-                    name="Image2"
-                    label="Image url 3"
-                    v-model="image3"
-                ></v-text-field>
-                <v-layout row wrap justify-end>
-                    <v-btn @click="uploadImg = false" text color="grey">cancel</v-btn>
-                    <v-btn color="blue lighten-2" type="submit">Submit</v-btn>
-                </v-layout>
-            </form>
+          <image-upload />
         </v-card>
       </v-dialog>
     </div>
@@ -61,12 +30,13 @@
 <script>
 import Header from '@/dashboard/components/header/index.vue'
 import ProductDetails from '@/dashboard/components/products/view-item'
-// import { API_BASE } from '@/config'
+import ImageUpload from '@/dashboard/components/products/image-upload'
 
 export default {
   components: {
     'header-main': Header,
-    'view-product-item': ProductDetails
+    'view-product-item': ProductDetails,
+    'image-upload': ImageUpload
   },
   data () {
     return {

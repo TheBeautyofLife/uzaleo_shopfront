@@ -31,7 +31,11 @@ import {
   ALL_ORDERS,
   ALL_ORDERS_SUCCESS,
   ORDER_BY_ID,
-  ORDER_BY_ID_SUCCESS
+  ORDER_BY_ID_SUCCESS,
+  ADD_IMAGE,
+  ADD_IMAGE_SUCCESS
+  // REMOVE_IMAGE,
+  // REMOVE_IMAGE_SUCCESS
 } from './mutation-types'
 
 Vue.use(VueCookies)
@@ -182,8 +186,25 @@ export const ordersActions = {
   },
   addOrders ({ commit }, payload) {
     commit(ADD_ORDER)
-    axios.post(`${API_BASE}/order/v1/order/create `, payload).then(response => {
+    axios.post(`${API_BASE}/order/v1/order/create`, payload).then(response => {
       commit(ADD_ORDER_SUCCESS, response.data)
+      // location.reload()
+    })
+  }
+}
+
+export const imagesActions = {
+  orderById ({ commit }, payload) {
+    commit(ORDER_BY_ID)
+    axios.get(`${API_BASE}/order/v1/order/${payload}`).then(response => {
+      // console.log(payload, response.data)
+      commit(ORDER_BY_ID_SUCCESS, response.data)
+    })
+  },
+  addImages ({ commit }, payload) {
+    commit(ADD_IMAGE)
+    axios.post(`${API_BASE}/image/v1/products/images/create/`, payload).then(response => {
+      commit(ADD_IMAGE_SUCCESS, response.data)
       // location.reload()
     })
   }

@@ -2,7 +2,7 @@ const path = require('path')
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
 
 module.exports = {
-  publicPath: '/uzaleo_shopfront/',
+  // publicPath: '/uzaleo_shopfront/',
   configureWebpack: {
     plugins: [
       new PrerenderSPAPlugin({

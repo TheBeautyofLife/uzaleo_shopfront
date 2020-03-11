@@ -68,7 +68,7 @@
           v-model="model.quantity"
           hidden
         ></v-select>
-        <v-btn icon color="#77BDD9" type="submit">
+          <v-btn color="#77BDD9" type="submit">
             Add Product
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
@@ -105,7 +105,6 @@ export default {
 
     save () {
       // console.log(this.fields.valid())
-      console.log(this.model)
       this.$validator.validateAll().then(() => {
         this.$emit('save-product', this.model)
       }).catch(() => {

@@ -228,12 +228,11 @@ export default {
       console.log(shippingfee)
 
       if (this.getDeliveryFee() == null || this.getDeliveryFee() === 0) {
-        console.log('red')
         return this.getVat() + this.totalPrice()
       } else if (this.getDeliveryFee() != null || this.getDeliveryFee() !== 0) {
         return this.getVat() + this.totalPrice() + shippingfee
       } else {
-        console.log('out')
+        return 0
       }
     },
     ShippingOption (selectedShipping) {

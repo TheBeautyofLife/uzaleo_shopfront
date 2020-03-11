@@ -1,10 +1,11 @@
+/* eslint-disable quote-props */
 <template>
     <v-layout row ml-4>
         <v-col class="ml-9 mt-2">
-                <ProductZoomer
-                  :base-images="images"
-                  :base-zoomer-options="zoomerOptions"
-                />
+            <ProductZoomer
+              :base-images="images"
+              :base-zoomer-options="zoomerOptions"
+            />
         <div class="mt-6">
             <v-col>
            <p class="subtitle-1 font-weight-medium"> Product name: {{ product.name }}</p>
@@ -19,39 +20,62 @@
 </template>
 
 <script>
+// import ProductZoomer from 'vue-product-zoomer'
+// Vue.use(ProductZoomer)
 export default {
   name: 'view-product-item',
   props: ['product'],
   components: {
-    //
+    // ProductZoomer
   },
   data () {
     return {
       images: {
-        normal_size: [
+        thumbs: [
           {
             id: 1,
-            url: 'https://i.ibb.co/b1w1ZKN/chakra-bracelet.jpg'
+            url:
+              'http://yoohooworld.com/images/vue-product-zoomer/images/thumbs/1.jpeg'
           },
           {
             id: 2,
-            url: 'https://i.ibb.co/rH2XDxm/buddha-bracelet-for-men.jpg'
+            url:
+              'http://yoohooworld.com/images/vue-product-zoomer/images/thumbs/2.jpeg'
+          }
+        ],
+        normal_size: [
+          {
+            id: 1,
+            url:
+              'http://yoohooworld.com/images/vue-product-zoomer/images/normal_size/1.jpeg'
           },
           {
-            id: 3,
-            url: 'https://i.ibb.co/pPs0PqB/black-buddha-bracelet.jpg'
+            id: 2,
+            url:
+              'http://yoohooworld.com/images/vue-product-zoomer/images/normal_size/2.jpeg'
+          }
+        ],
+        large_size: [
+          {
+            id: 1,
+            url:
+              'http://yoohooworld.com/images/vue-product-zoomer/images/large_size/1.jpeg'
+          },
+          {
+            id: 2,
+            url:
+              'http://yoohooworld.com/images/vue-product-zoomer/images/large_size/2.jpeg'
           }
         ]
       },
-
       zoomerOptions: {
         zoomFactor: 4,
-        pane: 'container-round',
+        pane: 'container',
         hoverDelay: 300,
-        namespace: 'inline-round-zoomer',
+        namespace: 'container-zoomer',
         move_by_click: true,
-        scroll_items: 5,
-        choosed_thumb_border_color: '#bbdefb'
+        scroll_items: 4,
+        choosed_thumb_border_color: '#ff3d00'
       }
     }
   },

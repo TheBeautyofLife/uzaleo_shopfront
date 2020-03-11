@@ -6,9 +6,9 @@ import store from '../store/index'
 /**
 * The are are routes modules
 **/
-import ProductRoute from './modules/Products'
+import ProductRoute from './modules/user/Products'
 import AuthRoute from './modules/Auth'
-import DashboardRoute from './modules/Dashboard'
+import DashboardRoute from './modules/admin/Dashboard'
 
 Vue.use(VueRouter)
 
@@ -16,7 +16,10 @@ const baseRoutes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: {
+      refresh: false
+    }
   }
 ]
 
