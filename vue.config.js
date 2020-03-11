@@ -3,6 +3,9 @@ const PrerenderSPAPlugin = require('prerender-spa-plugin')
 
 module.exports = {
   // publicPath: '/uzaleo_shopfront/',
+  devServer: {
+    disableHostCheck: true
+  },
   configureWebpack: {
     plugins: [
       new PrerenderSPAPlugin({
