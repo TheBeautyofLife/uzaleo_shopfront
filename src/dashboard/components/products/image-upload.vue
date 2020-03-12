@@ -90,27 +90,45 @@ export default {
       // upload data to the server
       this.currentStatus = STATUS_SAVING
       // eslint-disable-next-line no-undef
-      upload(formData)
-        .then(wait(1200)) // DEV ONLY: wait for 1.5s
-        .then(x => {
-          this.uploadedFiles = [].concat(x)
-          console.log(this.uploadedFiles)
+      // imageupload
+      const image = {
+        File: this.uploadedFiles,
+        length: this.uploadedFiles.length,
+        product_id: this.$route.params.id
+      }
+      this.$store.dispatch('addImages', image)
+        .then(wait(1200)) // waiting for upload - 1 minute
+        .then(i => {
+          this.uploadedFiles = [].concat(i)
+          console.log(i.data.product.imageLinks)
 
-          // Sending to the DB
-          const image = {
-            images: this.uploadedFiles.map(v => ({ url: v.url })),
-            length: this.uploadedFiles.length,
-            product_id: this.$route.params.id
-          }
-          this.$store.dispatch('addImages', image)
-            .then(i => console.log(i.data))
-
-          this.currentStatus = STATUS_SUCCESS
         })
         .catch(err => {
           this.uploadError = err.response
           this.currentStatus = STATUS_FAILED
         })
+
+      // upload(formData)
+      //   .then(wait(1200)) // DEV ONLY: wait for 1.5s
+      //   .then(x => {
+      //     this.uploadedFiles = [].concat(x)
+      //     console.log(this.uploadedFiles)
+
+      //     // Sending to the DB
+      //     const image = {
+      //       images: this.uploadedFiles.map(v => ({ url: v.url })),
+      //       length: this.uploadedFiles.length,
+      //       product_id: this.$route.params.id
+      //     }
+      //     this.$store.dispatch('addImages', image)
+      //       .then(i => console.log(i.data))
+
+      //     this.currentStatus = STATUS_SUCCESS
+      //   })
+      //   .catch(err => {
+      //     this.uploadError = err.response
+      //     this.currentStatus = STATUS_FAILED
+      //   })
     },
     filesChange (fieldName, fileList) {
       // handle file changes
