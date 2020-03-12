@@ -203,7 +203,7 @@ export const imagesActions = {
   },
   addImages ({ commit }, payload) {
     commit(ADD_IMAGE)
-    axios.post(`${API_BASE}/image/v1/products/images/create/`, payload).then(response => {
+    axios.patch(`${API_BASE}/image/v1/products/images/create/`, payload).then(response => {
       commit(ADD_IMAGE_SUCCESS, response.data)
       // location.reload()
     })

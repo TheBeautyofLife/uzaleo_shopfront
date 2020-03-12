@@ -51,7 +51,7 @@
 
 <script>
 // swap as you need
-import { upload } from '@/utils/file-upload.service'
+// import { upload } from '@/utils/file-upload.service'
 import { wait } from '@/utils/utils'
 
 const STATUS_INITIAL = 0; const STATUS_SAVING = 1; const STATUS_SUCCESS = 2; const STATUS_FAILED = 3
@@ -91,17 +91,17 @@ export default {
       this.currentStatus = STATUS_SAVING
       // eslint-disable-next-line no-undef
       // imageupload
-      const image = {
-        File: this.uploadedFiles,
-        length: this.uploadedFiles.length,
-        product_id: this.$route.params.id
-      }
-      this.$store.dispatch('addImages', image)
+      // upload(formData)
+      //   .then(i => {
+      //     this.uploadedFiles = [].concat(i)
+      //   })
+
+      this.$store.dispatch('addImages', formData)
         .then(wait(1200)) // waiting for upload - 1 minute
         .then(i => {
           this.uploadedFiles = [].concat(i)
-          console.log(i.data.product.imageLinks)
-
+          console.log(i.data)
+          this.currentStatus = STATUS_SUCCESS
         })
         .catch(err => {
           this.uploadError = err.response
@@ -114,21 +114,21 @@ export default {
       //     this.uploadedFiles = [].concat(x)
       //     console.log(this.uploadedFiles)
 
-      //     // Sending to the DB
-      //     const image = {
-      //       images: this.uploadedFiles.map(v => ({ url: v.url })),
-      //       length: this.uploadedFiles.length,
-      //       product_id: this.$route.params.id
-      //     }
-      //     this.$store.dispatch('addImages', image)
-      //       .then(i => console.log(i.data))
+      // Sending to the DB
+      // const image = {
+      //   images: this.uploadedFiles.map(v => ({ url: v.url })),
+      //   length: this.uploadedFiles.length,
+      //   product_id: this.$route.params.id
+      // }
+      // this.$store.dispatch('addImages', formData)
+      //   .then(i => console.log(i.data))
 
-      //     this.currentStatus = STATUS_SUCCESS
-      //   })
-      //   .catch(err => {
-      //     this.uploadError = err.response
-      //     this.currentStatus = STATUS_FAILED
-      //   })
+      //   this.currentStatus = STATUS_SUCCESS
+      // })
+      // .catch(err => {
+      //   this.uploadError = err.response
+      //   this.currentStatus = STATUS_FAILED
+      // })
     },
     filesChange (fieldName, fileList) {
       // handle file changes
@@ -138,8 +138,10 @@ export default {
       Array
         .from(Array(fileList.length).keys())
         .map(x => {
-          formData.append('image', fileList[x], fileList[x].name)
+          formData.append('File', fileList[x], fileList[x].name)
         })
+      formData.append('length', fileList.length)
+      formData.append('product_id', this.$route.params.id)
       // save it
       this.save(formData)
     }
