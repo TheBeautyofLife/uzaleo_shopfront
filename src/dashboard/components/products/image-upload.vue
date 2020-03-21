@@ -50,11 +50,9 @@
 </template>
 
 <script>
-// swap as you need
-// import { upload } from '@/utils/file-upload.service'
 import { wait } from '@/utils/utils'
-
 const STATUS_INITIAL = 0; const STATUS_SAVING = 1; const STATUS_SUCCESS = 2; const STATUS_FAILED = 3
+
 export default {
   name: 'upload',
   data () {
@@ -89,18 +87,12 @@ export default {
     save (formData) {
       // upload data to the server
       this.currentStatus = STATUS_SAVING
-      // eslint-disable-next-line no-undef
-      // imageupload
-      // upload(formData)
-      //   .then(i => {
-      //     this.uploadedFiles = [].concat(i)
-      //   })
 
       this.$store.dispatch('addImages', formData)
         .then(wait(1200)) // waiting for upload - 1 minute
         .then(i => {
-          this.uploadedFiles = [].concat(i)
-          console.log(i.data)
+          // this.uploadedFiles = [].concat(i)
+          // console.log(i.data)
           this.currentStatus = STATUS_SUCCESS
         })
         .catch(err => {

@@ -19,6 +19,7 @@ export const REMOVE_PRODUCT_FAILURE = 'REMOVE_PRODUCT_FAILURE'
 
 export const ADD_TO_CART = 'ADD_TO_CART'
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
+export const CLEAR_FROM_CART = 'CLEAR_FROM_CART'
 
 export const ERROR_MSG = 'ERROR_MSG'
 export const SUCCESS_MSG = 'SUCCESS_MSG'
@@ -30,6 +31,17 @@ export const SET_TOKEN = 'SET_TOKEN'
 export const SET_LOGIN_ERRORS = 'SET_LOGIN_ERRORS'
 export const LOGOUT = 'LOGOUT'
 export const SET_USER = 'SET_USER'
+
+export const USER_BY_ID = 'USER_BY_ID'
+export const USER_BY_ID_SUCCESS = 'USER_BY_ID_SUCCESS'
+
+export const USER_EDIT_ACCOUNT = 'USER_ACCOUNT'
+export const USER_EDIT_ACCOUNT_SUCCESS = 'USER_EDIT_ACCOUNT_SUCCESS'
+export const USER_EDIT_ACCOUNT_FAILURE = 'USER_EDIT_ACCOUNT_FAILURE'
+
+export const ALL_USERS = 'ALL_USER'
+export const ALL_USERS_SUCCESS = 'ALL_USERS_SUCCESS'
+export const ALL_USERS_FAILURE = 'ALL_USERS_FAILURE'
 
 /* Mutations for Shipping */
 export const ALL_SHIPPING = 'ALL_SHIPPING'

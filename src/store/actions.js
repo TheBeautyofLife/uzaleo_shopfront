@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueCookies from 'vue-cookies'
 import axios from 'axios'
-import { API_BASE, API_AUTH } from '../config'
+import { API_BASE, API_AUTH, API_IMAGE } from '@/utils/base-url.config'
 
 import {
   ADD_PRODUCT,
@@ -18,6 +18,12 @@ import {
   SET_TOKEN,
   SET_USER,
   SET_LOGIN_ERRORS,
+  ALL_USERS,
+  ALL_USERS_SUCCESS,
+  USER_BY_ID,
+  USER_BY_ID_SUCCESS,
+  USER_EDIT_ACCOUNT,
+  USER_EDIT_ACCOUNT_SUCCESS,
   ALL_SHIPPING,
   ALL_SHIPPING_SUCCESS,
   SHIPPING_BY_ID,
@@ -34,8 +40,6 @@ import {
   ORDER_BY_ID_SUCCESS,
   ADD_IMAGE,
   ADD_IMAGE_SUCCESS
-  // REMOVE_IMAGE,
-  // REMOVE_IMAGE_SUCCESS
 } from './mutation-types'
 
 Vue.use(VueCookies)
@@ -57,8 +61,9 @@ export const productActions = {
   addProduct ({ commit }, payload) {
     commit(ADD_PRODUCT)
     axios.put(`${API_BASE}/product/v1/products/create`, payload).then(response => {
-      commit(ADD_PRODUCT_SUCCESS, response.data)
-      location.reload()
+      Promise.resolve(commit(ADD_PRODUCT_SUCCESS, response.data))
+      Vue.$cookies.set('recently_added_item', response.data)
+      // location.reload()
     })
   },
   updateProduct ({ commit }, payload) {
@@ -76,7 +81,39 @@ export const productActions = {
   }
 }
 
+/**
+  * These are the user actions
+  * **/
 export const userActions = {
+  allUsers ({ commit }) {
+    commit(ALL_USERS)
+    axios.get(`${API_BASE}/users`).then(response => {
+      commit(ALL_USERS_SUCCESS, response.data)
+    })
+  },
+  userById ({ commit }, payload) {
+    commit(USER_BY_ID)
+    axios.get(`${API_BASE}/users/${payload}`).then(response => {
+      commit(USER_BY_ID_SUCCESS, response.data)
+    })
+  },
+
+  updateUser ({ commit }, payload) {
+    commit(USER_EDIT_ACCOUNT)
+    axios.patch(`${API_BASE}/users/creds/${payload._id}`, payload).then(response => {
+      commit(USER_EDIT_ACCOUNT_SUCCESS, response.data)
+      this.$cookies.set('user', response.data)
+    })
+  },
+
+  updateUserLocation ({ commit }, payload) {
+    commit(USER_EDIT_ACCOUNT)
+    axios.put(`${API_BASE}/users/location/${payload._id}`, payload).then(response => {
+      commit(USER_EDIT_ACCOUNT_SUCCESS, response.data)
+      this.$cookies.set('user', response.data)
+    })
+  },
+
   login ({ commit }, payload) {
     return new Promise((resolve, reject) => {
       commit(SET_LOGIN_REQUEST)
@@ -188,22 +225,16 @@ export const ordersActions = {
     commit(ADD_ORDER)
     axios.post(`${API_BASE}/order/v1/order/create`, payload).then(response => {
       commit(ADD_ORDER_SUCCESS, response.data)
+      Vue.$cookies.remove('cart')
       // location.reload()
     })
   }
 }
 
 export const imagesActions = {
-  orderById ({ commit }, payload) {
-    commit(ORDER_BY_ID)
-    axios.get(`${API_BASE}/order/v1/order/${payload}`).then(response => {
-      // console.log(payload, response.data)
-      commit(ORDER_BY_ID_SUCCESS, response.data)
-    })
-  },
   addImages ({ commit }, payload) {
     commit(ADD_IMAGE)
-    axios.patch(`${API_BASE}/image/v1/products/images/create/`, payload).then(response => {
+    axios.patch(`${API_IMAGE}/image/v1/products/images/create/`, payload).then(response => {
       commit(ADD_IMAGE_SUCCESS, response.data)
       // location.reload()
     })

@@ -58,7 +58,7 @@
           </v-textarea>
           <small class="text-danger" v-show="errors.has('description')"> {{ errors.has('description') }}</small>
 
-        <v-select
+        <!-- <v-select
           name="productqty"
           disabled
           :items="QtyItems"
@@ -67,7 +67,7 @@
           return-object
           v-model="model.quantity"
           hidden
-        ></v-select>
+        ></v-select> -->
           <v-btn color="#77BDD9" type="submit">
             Add Product
           <v-icon>mdi-pencil</v-icon>
@@ -81,6 +81,7 @@
 import {
   ERROR_MSG
 } from '@/store/mutation-types'
+
 export default {
   props: ['model'],
   data () {
@@ -104,11 +105,11 @@ export default {
     },
 
     save () {
-      // console.log(this.fields.valid())
+      // // console.log(this.fields.valid())
       this.$validator.validateAll().then(() => {
         this.$emit('save-product', this.model)
       }).catch(() => {
-        // eslint-disable-next-line no-undef
+      //   // eslint-disable-next-line no-undef
         this.$store.commit(ERROR_MSG, {
           type: 'error',
           title: 'Validation!',

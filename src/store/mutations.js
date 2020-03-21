@@ -9,12 +9,19 @@ import {
   REMOVE_PRODUCT_SUCCESS,
   ADD_TO_CART,
   REMOVE_FROM_CART,
+  CLEAR_FROM_CART,
   ALL_PRODUCTS,
   ALL_PRODUCTS_SUCCESS,
   ERROR_MSG,
   SET_LOGIN_REQUEST,
   SET_TOKEN,
   SET_LOGIN_ERRORS,
+  ALL_USERS,
+  ALL_USERS_SUCCESS,
+  USER_BY_ID,
+  USER_BY_ID_SUCCESS,
+  USER_EDIT_ACCOUNT,
+  USER_EDIT_ACCOUNT_SUCCESS,
   LOGOUT,
   SET_USER,
   ADD_SHIPPING,
@@ -93,10 +100,35 @@ export const cartMutations = {
     const index = state.cart.findIndex(p => p._id === payload)
     state.cart.splice(index, 1)
     // console.log(state.cart, state.cart.length, index)
+  },
+  [CLEAR_FROM_CART]: (state) => {
+    state.cart = ''
   }
 }
 
 export const userMutations = {
+  [ALL_USERS] (state) {
+    state.showLoader = true
+    // this[]
+  },
+  [ALL_USERS_SUCCESS] (state, payload) {
+    state.showLoader = false
+    state.users = payload
+  },
+  [USER_BY_ID] (state) {
+    state.showLoader = true
+  },
+  [USER_BY_ID_SUCCESS] (state, payload) {
+    state.showLoader = false
+    state.user = payload
+  },
+  [USER_EDIT_ACCOUNT] (state) {
+    state.showLoader = true
+  },
+  [USER_EDIT_ACCOUNT_SUCCESS] (state, payload) {
+    state.showLoader = false
+    state.products = payload
+  },
   [SET_LOGIN_REQUEST]: (state) => {
     state.showLoader = true
   },

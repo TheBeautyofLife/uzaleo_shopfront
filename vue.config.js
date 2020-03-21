@@ -5,7 +5,7 @@ module.exports = {
   // publicPath: '/uzaleo_shopfront/',
   devServer: {
     disableHostCheck: true
-  }
+  },
   // configureWebpack: {
   //   plugins: [
   //     new PrerenderSPAPlugin({
@@ -14,5 +14,13 @@ module.exports = {
   //       routes: ['/', '/about', '/some/deep/nested/route']
   //     })
   //   ]
-  // }
+  // },
+
+  pwa: {
+    name: 'Uzaleo Shopfront',
+    themeColor: '#172b4d',
+    msTileColor: '#172b4d',
+    appleMobileWebAppCapable: 'yes',
+    appleMobileWebAppStatusBarStyle: '#172b4d'
+  },
 }

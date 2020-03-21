@@ -5,11 +5,11 @@ import store from './store'
 import vuetify from './plugins/vuetify'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
+import './registerServiceWorker'
 import Axios from 'axios'
 import VueCookies from 'vue-cookies'
-import * as VeeValidate from 'vee-validate'
-// import ProductZoomer from 'vue-product-zoomer'
 import VueLogger from 'vuejs-logger'
+import * as VeeValidate from 'vee-validate'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -24,9 +24,8 @@ const options = {
 }
 
 Vue.use(VueLogger, options)
-
-Vue.use(VeeValidate)
 Vue.use(VueCookies)
+Vue.use(VeeValidate)
 
 Vue.prototype.$http = Axios
 

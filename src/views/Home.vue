@@ -18,14 +18,13 @@
 </template>
 
 <script>
-import Header from '@/components/header/index.vue'
-import ProductItem from '../views/Product/Product'
+import Header from '@/components/Header/index.header'
+import ProductItem from '@/Modules/Product/index.product'
 
 export default {
   name: 'Home',
   components: {
     'header-main': Header,
-    // eslint-disable-next-line vue/no-unused-components
     'product-item': ProductItem
   },
 

@@ -12,6 +12,9 @@ export const productGetters = {
 }
 
 export const userGetters = {
+  allUsers: (state, getters) => {
+    return state.users
+  },
   isLoggedIn: (state) => {
     return !!state.token
   },
@@ -21,7 +24,13 @@ export const userGetters = {
   loading (state) {
     return state.showLoader
   },
-  user: state => state.user
+  userById: (state, getters) => id => {
+    if (getters.allUsers.length > 0) {
+      return getters.allUsers.filter(p => p._id === id)[0]
+    } else {
+      return state.user
+    }
+  }
 }
 
 export const shippingGetters = {
