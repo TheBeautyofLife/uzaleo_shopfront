@@ -1,7 +1,7 @@
 <template>
   <v-app>
       <v-content>
-        <router-view />
+        <router-view/>
            <div class="d-flex justify-center align-center mt-12">
           <v-progress-circular color="grey ligthen-3" v-show="showLoader"  indeterminate
           ></v-progress-circular>
@@ -39,3 +39,13 @@ export default {
   // }
 }
 </script>
+
+<style>
+.background_default {
+  background-color: aqua!important;
+}
+.theme--light .container{
+  background: #F5F5F5!important;
+}
+
+</style>

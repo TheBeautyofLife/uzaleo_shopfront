@@ -1,18 +1,17 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 import store from '../store/index'
 
 /**
 * The are are routes modules
 **/
 import ProductRoute from './modules/shop/Products.route'
-
-import CheckoutRoute from './modules/shop/Checkout.route'
+import OrderRoute from './modules/shop/Orders.route'
+import ShippingRoute from './modules/shop/Shipping.route'
 
 import AuthRoute from './modules/auth/Auth.route'
 
-import DashboardRoute from './modules/admin/Dashboard'
+const Home = () => import('@/views/Home.vue')
 
 Vue.use(VueRouter)
 
@@ -22,12 +21,12 @@ const baseRoutes = [
     name: 'Home',
     component: Home,
     meta: {
-      refresh: false
+      requiresAuth: true
     }
   }
 ]
 
-const routes = baseRoutes.concat(ProductRoute, CheckoutRoute, AuthRoute, DashboardRoute)
+const routes = baseRoutes.concat(ProductRoute, AuthRoute, ShippingRoute, OrderRoute)
 
 const router = new VueRouter({
   mode: 'history',

@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const Register = () => import('@/Modules/Auth/Register.auth.vue')
-const Login = () => import('@/Modules/Auth/Login.auth.vue')
+const Register = () => import('@/views/Auth/Register.auth.vue')
+const Login = () => import('@/views/Auth/Login.auth.vue')
 
 Vue.use(Router)
 

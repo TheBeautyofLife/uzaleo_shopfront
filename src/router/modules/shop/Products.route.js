@@ -4,28 +4,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const ProductId = () => import('@/Modules/Product/view-by-id/id.vue')
-const All = () => import('@/Modules/Product/index.product.vue')
+const Products = () => import('@/Modules/products/index.products.vue')
+const ProductId = () => import('@/Modules/products/id/id.products.vue')
 
 Vue.use(Router)
 
 export default [
   {
-    path: '/shop',
-    name: 'Shop',
-    component: All,
+    path: '/products/',
+    name: 'Products',
+    component: Products,
     meta: {
-      refresh: false,
-      requiresAuth: false
+      refresh: true,
+      requiresAuth: true
     }
   },
   {
-    path: '/product/:id',
-    name: 'Product',
+    path: '/admin/product/:id',
+    name: 'ProductsId',
     component: ProductId,
     meta: {
-      refresh: false,
-      requiresAuth: false
+      requiresAuth: true
     }
   }
 ]
